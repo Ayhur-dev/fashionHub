@@ -314,7 +314,7 @@ import { useTheme } from "../composables/useTheme";
 const { isDark, toggleTheme } = useTheme();
 
 const isOpen = ref(false);
-const navRef = ref(null);
+
 const scrolled = ref(false);
 
 const handleScroll = () => {
