@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
+}
+
+/* Light mode */
+:root {
+  --bg: #ffffff;
+  --bg-secondary: #f9f9f9;
+  --text-primary: #111111;
+  --text-secondary: #555555;
+  --border: #e5e5e5;
+  --nav-bg: rgba(255, 255, 255);
+}
+
+/* Dark mode */
+html.dark {
+  --bg: #222831;
+  --bg-secondary: #141414;
+  --text-primary: #f0f0f0;
+  --text-secondary: #999999;
+  --border: #2a2a2a;
+
+  --nav-bg: #222831;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
