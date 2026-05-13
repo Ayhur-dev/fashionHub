@@ -8,8 +8,6 @@
       paddingRight: '1.4rem',
       backgroundColor: scrolled ? 'transparent' : 'var(--nav-bg)',
       borderColor: 'var(--border)',
-      paddingLeft: '1.2rem',
-      paddingRight: '1.2rem',
     }"
   >
     <!-- Desktop Navbar -->
@@ -63,8 +61,8 @@
           <Search :size="18" />
         </button>
 
-          <button
-            :style="{ color: getNavIconColor() }"
+        <button
+          :style="{ color: getNavIconColor() }"
           class="hover:opacity-70 transition-opacity duration-200"
         >
           <User :size="18" />

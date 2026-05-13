@@ -56,7 +56,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { animate } from "motion";
+
 
 const mounted = ref(false);
 

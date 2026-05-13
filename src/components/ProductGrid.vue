@@ -113,8 +113,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { animate, inView } from "motion";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-vue-next";
+
+onMounted(() => {});
 
 const hoveredIndex = ref<number | null>(null);
 const cardRefs = ref<HTMLElement[]>([]);
