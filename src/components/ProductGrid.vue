@@ -115,10 +115,23 @@
 import { ref, onMounted } from "vue";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-vue-next";
 
-onMounted(() => {});
+const props = defineProps<{
+  products: {
+    id: number;
+    name: string;
+    price: string;
+    images: string[];
+    currentImage: number;
+    colors: string[];
+    isNew: boolean;
+    isPersonalizable: boolean;
+    hasVariants: boolean;
+  }[];
+}>();
 
 const hoveredIndex = ref<number | null>(null);
 const cardRefs = ref<HTMLElement[]>([]);
+const products = ref(props.products.map((p) => ({ ...p })));
 
 const prevImage = (index: number) => {
   const product = products.value[index];
@@ -136,116 +149,5 @@ const nextImage = (index: number) => {
       : product.currentImage + 1;
 };
 
-const products = ref([
-  {
-    id: 1,
-    name: "The Twisted shirt dress",
-    price: "650",
-    images: [
-      "/product-1a.png",
-      "/product-1b.png",
-      "/product-1c.png",
-      "/product-1d.png",
-    ],
-    currentImage: 0,
-    colors: [" #b6af9d"],
-    isNew: true,
-    isPersonalizable: false,
-    hasVariants: false,
-  },
-  {
-    id: 2,
-    name: "The Valerie bag",
-    price: "890",
-    images: [
-      "/product-2a.png",
-      "/product-2b.png",
-      "/product-2c.png",
-      "/product-2d.png",
-    ],
-    currentImage: 0,
-    colors: ["#a8c5a0", "#c4a882", "#2c2c2c", "#A1591B"],
-    isNew: true,
-    isPersonalizable: true,
-    hasVariants: false,
-  },
-  {
-    id: 3,
-    name: "The Hippocampe large scarf",
-    price: "340",
-    images: ["/product-3a.png", "/product-3b.jpeg", "/product-3c.jpeg"],
-    currentImage: 0,
-    colors: ["#C3A68A"],
-    isNew: false,
-    isPersonalizable: false,
-    hasVariants: true,
-  },
-  {
-    id: 4,
-    name: "Cole Haan Men's sneakers",
-    price: "420",
-    images: [
-      "/product-4a.jpeg",
-      "/product-4b.jpeg",
-      "/product-4c.jpeg",
-      "/product-4d.jpeg",
-    ],
-    currentImage: 0,
-    colors: ["#968573", "#fff", "#000"],
-    isNew: false,
-    isPersonalizable: false,
-    hasVariants: false,
-  },
-  {
-    id: 5,
-    name: "The Twisted shirt dress",
-    price: "650",
-    images: ["/product-5a.jpeg", "/product-5b.jpeg"],
-    currentImage: 0,
-    colors: [" #000", "#EDB2DD", "#D90B0B", "#9AC1E3"],
-    isNew: true,
-    isPersonalizable: false,
-    hasVariants: false,
-  },
-  {
-    id: 6,
-    name: "Wool blend felt jacket",
-    price: "890",
-    images: [
-      "/product-6a.jpeg",
-      "/product-6b.jpeg",
-      "/product-6c.jpeg",
-      "/product-6d.jpeg",
-      "/product-6e.jpeg",
-      "/product-6f.jpeg",
-    ],
-    currentImage: 0,
-    colors: ["#E3D8CB", "#000000", "#FFFCED"],
-    isNew: true,
-    isPersonalizable: true,
-    hasVariants: false,
-  },
-  {
-    id: 7,
-    name: "The Hippocampe large scarf",
-    price: "340",
-    images: ["/product-7a.jpg", "/product-7b.jpeg", "/product-7c.jpeg"],
-    currentImage: 0,
-    colors: ["#000"],
-    isNew: false,
-    isPersonalizable: false,
-    hasVariants: true,
-  },
-  {
-    id: 8,
-    name: "The Twisted shirt dress",
-    price: "650",
-    images: ["/product-8a.jpeg", "/product-8b.jpeg", "/product-8c.jpeg", "/product-8d.jpeg", "/product-8e.jpeg"],
-    currentImage: 0,
-    colors: [" #000", "#EDB2DD", "#D90B0B", "#9AC1E3"],
-    isNew: true,
-    isPersonalizable: false,
-    hasVariants: false,
-  },
-]);
+onMounted(() => {});
 </script>

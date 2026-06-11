@@ -68,9 +68,15 @@ button {
   ::-webkit-scrollbar {
     display: none;
   }
-  
+
   html {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-section-pad {
+    padding: 1rem 1.5rem !important;
   }
 }
