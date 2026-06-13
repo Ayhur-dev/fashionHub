@@ -25,6 +25,7 @@ import ProductGrid from "../components/ProductGrid.vue";
 import SplitBanner from "../components/SplitBanner.vue";
 import Footer from "../components/Footer.vue";
 
+
 interface Product {
   id: number;
   name: string;

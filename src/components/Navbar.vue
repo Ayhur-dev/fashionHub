@@ -14,11 +14,14 @@
       }"
     >
       <!-- Desktop Navbar -->
-      <div class="hidden md:flex items-center justify-between h-[82px]">
+      <div class="hidden lg:flex items-center justify-between h-[82px]">
         <RouterLink
           to="/"
           class="font-black text-[22px] tracking-[0.15em] uppercase shrink-0"
-          :style="{ fontFamily: 'Inter, sans-serif', color: isDark ? '#ffffff' : '#111111' }"
+          :style="{
+            fontFamily: 'Inter, sans-serif',
+            color: isDark ? '#ffffff' : '#111111',
+          }"
         >
           Nyx Collective
         </RouterLink>
@@ -28,25 +31,43 @@
             v-for="link in navLinks"
             :key="link.label"
             class="relative text-[12px] whitespace-nowrap group"
-            :style="{ fontFamily: 'Inter, sans-serif', fontWeight: '400', color: isDark ? '#ffffff' : '#1f2937' }"
+            :style="{
+              fontFamily: 'Inter, sans-serif',
+              fontWeight: '400',
+              color: isDark ? '#ffffff' : '#1f2937',
+            }"
             @click="openMegaMenu(link.label)"
           >
             {{ link.label }}
             <span
-              class="absolute bottom-0 left-0 h-[1px] w-0 group-hover:w-full transition-all duration-300 ease-in-out"
+              class="absolute bottom-0 left-0 h-[1px] transition-all duration-300 ease-in-out"
+              :class="
+                activeMegaMenu === link.label
+                  ? 'w-full'
+                  : 'w-0 group-hover:w-full'
+              "
               :style="{ backgroundColor: isDark ? '#ffffff' : '#1f2937' }"
             ></span>
           </button>
         </nav>
 
         <div class="flex items-center gap-5 shrink-0">
-          <button :style="{ color: getNavIconColor() }" class="hover:opacity-70 transition-opacity duration-200">
+          <button
+            :style="{ color: getNavIconColor() }"
+            class="hover:opacity-70 transition-opacity duration-200"
+          >
             <Search :size="18" />
           </button>
-          <button :style="{ color: getNavIconColor() }" class="hover:opacity-70 transition-opacity duration-200">
+          <button
+            :style="{ color: getNavIconColor() }"
+            class="hover:opacity-70 transition-opacity duration-200"
+          >
             <User :size="18" />
           </button>
-          <button :style="{ color: getNavIconColor() }" class="hover:opacity-70 transition-opacity duration-200">
+          <button
+            :style="{ color: getNavIconColor() }"
+            class="hover:opacity-70 transition-opacity duration-200"
+          >
             <Heart :size="18" />
           </button>
           <button
@@ -63,30 +84,51 @@
             :style="{ color: isDark ? '#ffffff' : '#1f2937' }"
           >
             Shopping cart
-            <span class="w-1.5 h-1.5 rounded-full" :style="{ backgroundColor: isDark ? '#ffffff' : '#111111' }"></span>
+            <span
+              class="w-1.5 h-1.5 rounded-full"
+              :style="{ backgroundColor: isDark ? '#ffffff' : '#111111' }"
+            ></span>
           </RouterLink>
         </div>
       </div>
 
       <!-- Mobile Navbar -->
-      <div class="flex md:hidden items-center justify-between h-20">
+      <div class="flex lg:hidden items-center justify-between h-20">
         <RouterLink
           to="/"
           class="font-black text-[17px] tracking-[0.15em] uppercase"
-          :style="{ fontFamily: 'Inter, sans-serif', color: isDark ? '#ffffff' : '#111111' }"
+          :style="{
+            fontFamily: 'Inter, sans-serif',
+            color: isDark ? '#ffffff' : '#111111',
+          }"
         >
           Nyx Collective
         </RouterLink>
         <div class="flex items-center gap-4">
-          <button :style="{ color: isDark ? '#ffffff' : '#111111' }"><Search :size="17" /></button>
-          <button :style="{ color: isDark ? '#ffffff' : '#111111' }"><Heart :size="17" /></button>
-          <span class="w-1.5 h-1.5 rounded-full" :style="{ backgroundColor: isDark ? '#ffffff' : '#111111' }"></span>
-          <button @click="toggleTheme" class="transition-colors duration-300" :style="{ color: isDark ? '#ffffff' : '#111111' }">
+          <button :style="{ color: isDark ? '#ffffff' : '#111111' }">
+            <Search :size="17" />
+          </button>
+          <button :style="{ color: isDark ? '#ffffff' : '#111111' }">
+            <Heart :size="17" />
+          </button>
+          <span
+            class="w-1.5 h-1.5 rounded-full"
+            :style="{ backgroundColor: isDark ? '#ffffff' : '#111111' }"
+          ></span>
+          <button
+            @click="toggleTheme"
+            class="transition-colors duration-300"
+            :style="{ color: isDark ? '#ffffff' : '#111111' }"
+          >
             <Sun v-if="isDark" :size="17" />
             <Moon v-else :size="17" />
           </button>
           <button @click="toggleMenu">
-            <Menu :size="22" :stroke-width="2.5" :style="{ color: isDark ? '#ffffff' : '#111111' }" />
+            <Menu
+              :size="22"
+              :stroke-width="2.5"
+              :style="{ color: isDark ? '#ffffff' : '#111111' }"
+            />
           </button>
         </div>
       </div>
@@ -95,20 +137,19 @@
       <Transition name="mega">
         <div
           v-if="activeMegaMenu"
-          class="fixed left-0 h-screen right-0 bottom-0 z-40 flex overflow-hidden"
+          class="fixed left-0 inset-0 h-screen right-0 bottom-0 z-40 flex overflow-hidden"
           :style="{
-            top: '82px',
+           
             backgroundColor: isDark ? '#222831' : '#ffffff',
             borderTop: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
           }"
         >
           <!-- Left Sidebar -->
           <div
-            class="flex flex-col gap-1 shrink-0 overflow-y-auto h-full"
+            class="!mt-20 flex flex-col gap-2 shrink-0 overflow-y-auto h-full"
             :style="{
               width: '340px',
               padding: '2rem 2.5rem',
-              borderRight: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
             }"
           >
             <template
@@ -120,11 +161,19 @@
                 class="flex items-center justify-between w-full text-left py-2 transition-opacity duration-200 hover:opacity-60"
                 :style="{
                   color: isDark ? '#ffffff' : '#111111',
-                  textDecoration: activeAccordion === item.key && item.key ? 'underline' : 'none',
+                  textDecoration:
+                    activeAccordion === item.key && item.key
+                      ? 'underline'
+                      : 'none',
                   textUnderlineOffset: '3px',
                   fontSize: '13px',
                 }"
-                @click="item.key ? (activeAccordion = activeAccordion === item.key ? null : item.key) : null"
+                @click="
+                  item.key
+                    ? (activeAccordion =
+                        activeAccordion === item.key ? null : item.key)
+                    : null
+                "
               >
                 {{ item.label }}
                 <ChevronDown
@@ -133,7 +182,10 @@
                   class="transition-transform duration-300 shrink-0"
                   :style="{
                     color: isDark ? '#ffffff' : '#111111',
-                    transform: activeAccordion === item.key ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transform:
+                      activeAccordion === item.key
+                        ? 'rotate(180deg)'
+                        : 'rotate(0deg)',
                   }"
                 />
               </button>
@@ -141,13 +193,15 @@
               <!-- Accordion Links -->
               <div
                 v-if="item.links.length > 0"
-                class="flex flex-col overflow-hidden transition-all duration-300"
-                :style="activeAccordion === item.key
-                  ? 'max-height: 200px; opacity: 1'
-                  : 'max-height: 0px; opacity: 0'"
+                class="flex flex-col overflow-hidden transition-all duration-300 gap-4"
+                :style="
+                  activeAccordion === item.key
+                    ? 'max-height: 200px; opacity: 1'
+                    : 'max-height: 0px; opacity: 0'
+                "
               >
-                
-                <a  v-for="link in item.links"
+                <a
+                  v-for="link in item.links"
                   :key="link"
                   href="#"
                   class="text-[12px] py-2 pl-2 transition-opacity duration-200 hover:opacity-60"
@@ -160,7 +214,7 @@
           </div>
 
           <!-- Right: Split Images -->
-          <div class="flex flex-1 h-full">
+          <div class="!mt-20 flex flex-1 h-full gap-5 !px-10">
             <div
               v-for="image in megaMenus[activeMegaMenu]?.images"
               :key="image.label"
@@ -171,10 +225,18 @@
                 :alt="image.label"
                 class="w-full h-full object-cover"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+              <div
+                class="absolute inset-0 bg-linear-to-t from-black/30 to-transparent"
+              ></div>
               <div class="absolute bottom-6 left-6">
-                <p class="text-white text-sm font-medium mb-1">{{ image.label }}</p>
-                <a href="#" class="text-white text-xs" style="text-decoration: underline; text-underline-offset: 3px;">
+                <p class="text-white text-sm font-medium mb-1">
+                  {{ image.label }}
+                </p>
+                <a
+                  href="#"
+                  class="!text-white text-xs"
+                  style="text-decoration: underline; text-underline-offset: 3px"
+                >
                   {{ image.discover }}
                 </a>
               </div>
@@ -196,7 +258,7 @@
     <!-- Teleport outside header -->
     <Teleport to="body">
       <div
-        class="fixed inset-0 z-50 md:hidden flex flex-col transition-colors duration-500"
+        class="fixed inset-0 z-50 lg:hidden flex flex-col transition-colors duration-500"
         :style="{
           backgroundColor: isDark ? '#222831' : '#ffffff',
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
@@ -212,16 +274,27 @@
             to="/"
             @click="closeMenu"
             class="font-black text-[19px] tracking-[0.15em] uppercase"
-            :style="{ fontFamily: 'Inter, sans-serif', color: isDark ? '#ffffff' : '#111111' }"
+            :style="{
+              fontFamily: 'Inter, sans-serif',
+              color: isDark ? '#ffffff' : '#111111',
+            }"
           >
             Nyx Collective
           </RouterLink>
           <div class="flex items-center gap-4">
-            <button @click="toggleTheme" class="transition-colors duration-300" :style="{ color: isDark ? '#ffffff' : '#111111' }">
+            <button
+              @click="toggleTheme"
+              class="transition-colors duration-300"
+              :style="{ color: isDark ? '#ffffff' : '#111111' }"
+            >
               <Sun v-if="isDark" :size="17" />
               <Moon v-else :size="17" />
             </button>
-            <button @click="closeMenu" class="transition-colors hover:opacity-70" :style="{ color: isDark ? '#ffffff' : '#111111' }">
+            <button
+              @click="closeMenu"
+              class="transition-colors hover:opacity-70"
+              :style="{ color: isDark ? '#ffffff' : '#111111' }"
+            >
               <X :size="18" />
             </button>
           </div>
@@ -248,7 +321,10 @@
         </div>
 
         <!-- Nav Links -->
-        <nav class="flex flex-col flex-1 overflow-y-auto" style="margin-top: 0.7rem">
+        <nav
+          class="flex flex-col flex-1 overflow-y-auto"
+          style="margin-top: 0.7rem"
+        >
           <RouterLink
             v-for="(link, index) in navLinks"
             :key="link.label"
@@ -284,23 +360,44 @@
             @click="closeMenu"
             class="flex items-center gap-3 text-sm transition-colors"
             style="padding: 0.8rem 1.5rem"
-            :style="{ color: isDark ? '#ffffff' : '#4b5563', borderBottom: `1px solid ${isDark ? '#333' : '#e5e5e5'}` }"
+            :style="{
+              color: isDark ? '#ffffff' : '#4b5563',
+              borderBottom: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
+            }"
           >
-            <span class="w-1.5 h-1.5 rounded-full shrink-0" :style="{ backgroundColor: isDark ? '#ffffff' : '#374151' }"></span>
+            <span
+              class="w-1.5 h-1.5 rounded-full shrink-0"
+              :style="{ backgroundColor: isDark ? '#ffffff' : '#374151' }"
+            ></span>
             Shopping cart
           </RouterLink>
           <button
             class="flex items-center gap-3 text-sm text-left transition-colors"
-            :style="{ padding: '0.8rem 1.5rem', color: isDark ? '#ffffff' : '#4b5563', borderBottom: `1px solid ${isDark ? '#333' : '#e5e5e5'}` }"
+            :style="{
+              padding: '0.8rem 1.5rem',
+              color: isDark ? '#ffffff' : '#4b5563',
+              borderBottom: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
+            }"
           >
-            <User :size="14" class="shrink-0" :style="{ color: isDark ? '#ffffff' : '#6b7280' }" />
+            <User
+              :size="14"
+              class="shrink-0"
+              :style="{ color: isDark ? '#ffffff' : '#6b7280' }"
+            />
             Account
           </button>
           <button
             class="flex items-center gap-3 text-sm text-left transition-colors"
-            :style="{ padding: '0.8rem 1.5rem', color: isDark ? '#ffffff' : '#4b5563' }"
+            :style="{
+              padding: '0.8rem 1.5rem',
+              color: isDark ? '#ffffff' : '#4b5563',
+            }"
           >
-            <MessageCircle :size="14" class="shrink-0" :style="{ color: isDark ? '#ffffff' : '#6b7280' }" />
+            <MessageCircle
+              :size="14"
+              class="shrink-0"
+              :style="{ color: isDark ? '#ffffff' : '#6b7280' }"
+            />
             Customer Care
           </button>
         </div>
@@ -310,102 +407,182 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { RouterLink } from 'vue-router'
-import { Search, User, Heart, Menu, X, MessageCircle, Sun, Moon, ChevronDown } from 'lucide-vue-next'
-import { useTheme } from '../composables/useTheme'
+import { ref, onMounted, onUnmounted } from "vue";
+import { RouterLink } from "vue-router";
+import {
+  Search,
+  User,
+  Heart,
+  Menu,
+  X,
+  MessageCircle,
+  Sun,
+  Moon,
+  ChevronDown,
+} from "lucide-vue-next";
+import { useTheme } from "../composables/useTheme";
+import { watch } from "vue";
 
-const { isDark, toggleTheme } = useTheme()
+const { isDark, toggleTheme } = useTheme();
 
-const isOpen = ref(false)
-const scrolled = ref(false)
-const navVisible = ref(true)
+const isOpen = ref(false);
+const scrolled = ref(false);
+const navVisible = ref(true);
 
 const handleScroll = () => {
-  scrolled.value = window.scrollY > 10
-  const footer = document.querySelector('footer')
+  scrolled.value = window.scrollY > 10;
+  const footer = document.querySelector("footer");
   if (footer) {
-    const footerTop = footer.getBoundingClientRect().top
-    navVisible.value = footerTop > 80
+    const footerTop = footer.getBoundingClientRect().top;
+    navVisible.value = footerTop > 80;
   }
-}
+};
 
-onMounted(() => { window.addEventListener('scroll', handleScroll) })
-onUnmounted(() => { window.removeEventListener('scroll', handleScroll) })
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
 
 const navLinks = [
-  { label: 'New In', href: '/new-in' },
-  { label: 'Bags', href: '/bags' },
-  { label: 'Women', href: '/women' },
-  { label: 'Men', href: '/men' },
-  { label: 'The Valérie Bag', href: '/valerie-bag' },
-  { label: 'Gifts', href: '/gifts' },
-  { label: 'Explore', href: '/explore' },
-]
+  { label: "New In", href: "/new-in" },
+  { label: "Bags", href: "/bags" },
+  { label: "Women", href: "/women" },
+  { label: "Men", href: "/men" },
+  { label: "The Valérie Bag", href: "/valerie-bag" },
+  { label: "Gifts", href: "/gifts" },
+  { label: "Explore", href: "/explore" },
+];
 
-const toggleMenu = () => { isOpen.value = !isOpen.value }
-const closeMenu = () => { isOpen.value = false }
-const getNavIconColor = () => isDark.value ? '#ffffff' : '#111111'
+const toggleMenu = () => {
+  isOpen.value = !isOpen.value;
+};
+const closeMenu = () => {
+  isOpen.value = false;
+};
+const getNavIconColor = () => (isDark.value ? "#ffffff" : "#111111");
 
-const activeMegaMenu = ref<string | null>(null)
-const activeAccordion = ref<string | null>(null)
+const activeMegaMenu = ref<string | null>(null);
+const activeAccordion = ref<string | null>(null);
 
-const megaMenus: Record<string, {
-  sidebar: { label: string; key: string | null; links: string[] }[]
-  images: { src: string; label: string; discover: string }[]
-}> = {
-  'New In': {
+const megaMenus: Record<
+  string,
+  {
+    sidebar: { label: string; key: string | null; links: string[] }[];
+    images: { src: string; label: string; discover: string }[];
+  }
+> = {
+  "New In": {
     sidebar: [
-      { label: 'Women - New In', key: 'women-new-in', links: ['View all', 'Bags', 'Ready-to-wear', 'Accessories & Shoes'] },
-      { label: 'Men - New In', key: 'men-new-in', links: ['View all', 'Ready-to-wear', 'Accessories & Bags', 'Shoes'] },
-      { label: 'New Bags', key: null, links: [] },
+      {
+        label: "Women - New In",
+        key: "women-new-in",
+        links: ["View all", "Bags", "Ready-to-wear", "Accessories & Shoes"],
+      },
+      {
+        label: "Men - New In",
+        key: "men-new-in",
+        links: ["View all", "Ready-to-wear", "Accessories & Bags", "Shoes"],
+      },
+      { label: "New Bags", key: null, links: [] },
     ],
     images: [
-      { src: '/mega-women.jpg', label: 'Women', discover: 'Discover the novelties' },
-      { src: '/mega-men.jpg', label: 'Men', discover: 'Discover the men novelties' },
+      {
+        src: "/mega-women.jpg",
+        label: "Women",
+        discover: "Discover the novelties",
+      },
+      {
+        src: "/mega-men.jfif",
+        label: "Men",
+        discover: "Discover the men novelties",
+      },
     ],
   },
-  'Women': {
+  Women: {
     sidebar: [
-      { label: 'Women - New In', key: 'women-new-in', links: ['View all', 'Bags', 'Ready-to-wear', 'Accessories & Shoes'] },
-      { label: 'Men - New In', key: 'men-new-in', links: ['View all', 'Ready-to-wear', 'Accessories & Bags', 'Shoes'] },
-      { label: 'New Bags', key: null, links: [] },
+      {
+        label: "Women - New In",
+        key: "women-new-in",
+        links: ["View all", "Bags", "Ready-to-wear", "Accessories & Shoes"],
+      },
+      {
+        label: "Men - New In",
+        key: "men-new-in",
+        links: ["View all", "Ready-to-wear", "Accessories & Bags", "Shoes"],
+      },
+      { label: "New Bags", key: null, links: [] },
     ],
     images: [
-      { src: '/mega-women.jpg', label: 'Women', discover: 'Discover the novelties' },
-      { src: '/mega-men.jpg', label: 'Men', discover: 'Discover the men novelties' },
+      {
+        src: "/mega-women.jpg",
+        label: "Women",
+        discover: "Discover the novelties",
+      },
+      {
+        src: "/mega-men.jpg",
+        label: "Men",
+        discover: "Discover the men novelties",
+      },
     ],
   },
-  'Men': {
+  Men: {
     sidebar: [
-      { label: 'Women - New In', key: 'women-new-in', links: ['View all', 'Bags', 'Ready-to-wear', 'Accessories & Shoes'] },
-      { label: 'Men - New In', key: 'men-new-in', links: ['View all', 'Ready-to-wear', 'Accessories & Bags', 'Shoes'] },
-      { label: 'New Bags', key: null, links: [] },
+      {
+        label: "Women - New In",
+        key: "women-new-in",
+        links: ["View all", "Bags", "Ready-to-wear", "Accessories & Shoes"],
+      },
+      {
+        label: "Men - New In",
+        key: "men-new-in",
+        links: ["View all", "Ready-to-wear", "Accessories & Bags", "Shoes"],
+      },
+      { label: "New Bags", key: null, links: [] },
     ],
     images: [
-      { src: '/mega-women.jpg', label: 'Women', discover: 'Discover the novelties' },
-      { src: '/mega-men.jpg', label: 'Men', discover: 'Discover the men novelties' },
+      {
+        src: "/mega-women.jpg",
+        label: "Women",
+        discover: "Discover the novelties",
+      },
+      {
+        src: "/mega-men.jfif",
+        label: "Men",
+        discover: "Discover the men novelties",
+      },
     ],
   },
-}
+};
 
 const openMegaMenu = (label: string) => {
   if (megaMenus[label]) {
-    activeMegaMenu.value = activeMegaMenu.value === label ? null : label
-    activeAccordion.value = null
+    activeMegaMenu.value = activeMegaMenu.value === label ? null : label;
+    activeAccordion.value = null;
   }
-}
+};
 
 const closeMegaMenu = () => {
-  activeMegaMenu.value = null
-  activeAccordion.value = null
-}
+  activeMegaMenu.value = null;
+  activeAccordion.value = null;
+};
+
+watch(activeMegaMenu, (value) => {
+  if (value) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+});
 </script>
 
 <style scoped>
 .mega-enter-active,
 .mega-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 .mega-enter-from,
 .mega-leave-to {
