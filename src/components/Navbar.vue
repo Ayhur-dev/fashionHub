@@ -221,10 +221,10 @@
           <!-- Middle: Product Grid — only for Bags -->
           <div
             v-if="megaMenus[activeMegaMenu]?.products"
-            class="flex-1 overflow-y-auto h-full"
+            class="flex-1 !p-20 h-full"
             :style="{ borderRight: `1px solid ${isDark ? '#333' : '#e5e5e5'}` }"
           >
-            <div class="grid grid-cols-3">
+            <div class="grid grid-cols-3 gap-3">
               <div
                 v-for="product in megaMenus[activeMegaMenu]?.products"
                 :key="product.name"
@@ -234,19 +234,19 @@
                   borderRight: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
                 }"
               >
-                <div class="overflow-hidden" style="aspect-ratio: 1/1">
+                <div class="relative overflow-hidden" style="aspect-ratio: 1/1">
                   <img
                     :src="product.image"
                     :alt="product.name"
                     class="w-full h-full object-cover"
                   />
+                  <p
+                    class="absolute top-27 left-2 text-[10px]"
+                    :style="{ color: 'var(--text-primary)' }"
+                  >
+                    {{ product.name }}
+                  </p>
                 </div>
-                <p
-                  class="text-xs py-2 px-3"
-                  :style="{ color: 'var(--text-primary)' }"
-                >
-                  {{ product.name }}
-                </p>
               </div>
             </div>
           </div>
@@ -628,14 +628,14 @@ const megaMenus: Record<
     ],
     images: [
       {
-        src: "/mega-bags.jpg",
+        src: "/bag-1.webp",
         label: '"The Valérie"',
         discover: "Discover the collection",
       },
     ],
     products: [
       { name: "The Valéries", image: "/bag-1.webp" },
-      { name: "The Bambinos", image: "/bag-2.jpg" },
+      { name: "The Bambinos", image: "/bag-2.webp" },
       { name: "Baskets & Raffia", image: "/bag-3.jpg" },
       { name: "The Rond Carré clutch", image: "/bag-4.jpg" },
       { name: "The Turismos", image: "/bag-5.jpg" },

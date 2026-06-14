@@ -1,6 +1,6 @@
 <template>
   <div
-    style="padding-top: 80px; min-height: 100vh; background-color: var(--bg)"
+    style="padding-top: 30px; min-height: 100vh; background-color: var(--bg)"
   >
     <!-- Top Bar -->
     <div
@@ -48,13 +48,13 @@
           overflow-x: auto;
           margin-top: 1rem;
           scrollbar-width: none;
+          gap: 1rem;
         "
       >
         <div
           v-for="product in bagProducts"
           :key="product.name"
           class="cursor-pointer shrink-0"
-          style="width: 40vw"
           :style="{ borderRight: '1px solid var(--border)' }"
         >
           <div
@@ -62,7 +62,9 @@
               aspect-ratio: 1/1;
               overflow: hidden;
               background-color: var(--bg-secondary);
-              height: 50vw;
+              height: 56vw;
+              width: 42vw;
+              position: relative;
             "
           >
             <img
@@ -70,13 +72,13 @@
               :alt="product.name"
               class="w-full h-full object-cover"
             />
+            <p
+              class="absolute top-2 left-2 text-xs"
+              :style="{ color: 'var(--text-primary)' }"
+            >
+              {{ product.name }}
+            </p>
           </div>
-          <p
-            class="text-[10px] py-1.5 px-2"
-            :style="{ color: 'var(--text-primary)' }"
-          >
-            {{ product.name }}
-          </p>
         </div>
       </div>
     </div>
@@ -197,8 +199,8 @@ const bagCategories = [
 ];
 
 const bagProducts = [
-  { name: "The Valéries", image: "/bag-1.jpg" },
-  { name: "The Bambinos", image: "/bag-2.jpg" },
+  { name: "The Valéries", image: "/bag-1.webp" },
+  { name: "The Bambinos", image: "/bag-2.webp" },
   { name: "Baskets & Raffia", image: "/bag-3.jpg" },
   { name: "The Rond Carré clutch", image: "/bag-4.jpg" },
   { name: "The Turismos", image: "/bag-5.jpg" },
@@ -208,7 +210,7 @@ const bagProducts = [
   { name: "The Berlingot", image: "/bag-9.jpg" },
 ];
 
-// New In / Women / Men — untouched
+// New In / Women / Men
 const categories = [
   {
     label: "Women - New In",
