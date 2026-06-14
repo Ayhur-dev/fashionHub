@@ -6,8 +6,13 @@
       :style="{
         paddingLeft: '1.4rem',
         paddingRight: '1.4rem',
-        backgroundColor: scrolled ? 'transparent' : 'var(--nav-bg)',
-        borderColor: scrolled ? 'transparent' : 'var(--border)',
+        backgroundColor:
+          activeMegaMenu || !scrolled ? 'var(--nav-bg)' : 'transparent',
+        borderBottom: activeMegaMenu
+          ? `1px solid ${isDark ? '#333' : '#e5e5e5'}`
+          : scrolled
+            ? 'none'
+            : `1px solid var(--border)`,
         opacity: navVisible ? '1' : '0',
         pointerEvents: navVisible ? 'auto' : 'none',
         transform: navVisible ? 'translateY(0)' : 'translateY(-100%)',
@@ -137,16 +142,16 @@
       <Transition name="mega">
         <div
           v-if="activeMegaMenu"
-          class="fixed left-0 inset-0 h-screen right-0 bottom-0 z-40 flex overflow-hidden"
+          class="fixed left-0 h-[calc(100vh-82px)] right-0 bottom-0 z-40 flex overflow-hidden"
           :style="{
-           
+            top: '82px',
             backgroundColor: isDark ? '#222831' : '#ffffff',
             borderTop: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
           }"
         >
           <!-- Left Sidebar -->
           <div
-            class="!mt-20 flex flex-col gap-2 shrink-0 overflow-y-auto h-full"
+            class="flex flex-col gap-2 shrink-0 overflow-y-auto h-full"
             :style="{
               width: '340px',
               padding: '2rem 2.5rem',
@@ -213,22 +218,61 @@
             </template>
           </div>
 
-          <!-- Right: Split Images -->
-          <div class="!mt-20 flex flex-1 h-full gap-5 !px-10">
+          <!-- Middle: Product Grid — only for Bags -->
+          <div
+            v-if="megaMenus[activeMegaMenu]?.products"
+            class="flex-1 overflow-y-auto h-full"
+            :style="{ borderRight: `1px solid ${isDark ? '#333' : '#e5e5e5'}` }"
+          >
+            <div class="grid grid-cols-3">
+              <div
+                v-for="product in megaMenus[activeMegaMenu]?.products"
+                :key="product.name"
+                class="cursor-pointer group"
+                :style="{
+                  borderBottom: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
+                  borderRight: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
+                }"
+              >
+                <div class="overflow-hidden" style="aspect-ratio: 1/1">
+                  <img
+                    :src="product.image"
+                    :alt="product.name"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <p
+                  class="text-xs py-2 px-3"
+                  :style="{ color: 'var(--text-primary)' }"
+                >
+                  {{ product.name }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Images -->
+          <div
+            :class="
+              megaMenus[activeMegaMenu]?.products
+                ? 'w-[380px] shrink-0'
+                : 'flex flex-1'
+            "
+            class="h-full"
+          >
             <div
               v-for="image in megaMenus[activeMegaMenu]?.images"
               :key="image.label"
-              class="relative flex-1 overflow-hidden cursor-pointer"
+              class="relative overflow-hidden cursor-pointer h-full !px-12"
+              :class="megaMenus[activeMegaMenu]?.products ? 'w-full' : 'flex-1'"
             >
               <img
                 :src="image.src"
                 :alt="image.label"
                 class="w-full h-full object-cover"
               />
-              <div
-                class="absolute inset-0 bg-linear-to-t from-black/30 to-transparent"
-              ></div>
-              <div class="absolute bottom-6 left-6">
+              <div class="absolute inset-0"></div>
+              <div class="!p-10 absolute bottom-6 left-6 z-10">
                 <p class="text-white text-sm font-medium mb-1">
                   {{ image.label }}
                 </p>
@@ -246,7 +290,7 @@
           <!-- Close Button -->
           <button
             @click="closeMegaMenu"
-            class="absolute top-4 right-4 transition-opacity duration-200 hover:opacity-60"
+            class="absolute top-0 right-4 transition-opacity duration-200 hover:opacity-60"
             :style="{ color: isDark ? '#ffffff' : '#111111' }"
           >
             <X :size="18" />
@@ -407,8 +451,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
-import { RouterLink } from "vue-router";
+import { ref, onMounted, onUnmounted, watch } from "vue";
+import { RouterLink, useRoute } from "vue-router";
 import {
   Search,
   User,
@@ -421,13 +465,15 @@ import {
   ChevronDown,
 } from "lucide-vue-next";
 import { useTheme } from "../composables/useTheme";
-import { watch } from "vue";
 
+const route = useRoute();
 const { isDark, toggleTheme } = useTheme();
 
 const isOpen = ref(false);
 const scrolled = ref(false);
 const navVisible = ref(true);
+const activeMegaMenu = ref<string | null>(null);
+const activeAccordion = ref<string | null>(null);
 
 const handleScroll = () => {
   scrolled.value = window.scrollY > 10;
@@ -438,11 +484,29 @@ const handleScroll = () => {
   }
 };
 
+// Single onMounted — no duplicates
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
+  if (route.query.menu === "open") {
+    isOpen.value = true;
+  }
 });
+
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
+});
+
+watch(
+  () => route.query.menu,
+  (val) => {
+    if (val === "open") {
+      isOpen.value = true;
+    }
+  },
+);
+
+watch(activeMegaMenu, (value) => {
+  document.body.style.overflow = value ? "hidden" : "";
 });
 
 const navLinks = [
@@ -463,14 +527,12 @@ const closeMenu = () => {
 };
 const getNavIconColor = () => (isDark.value ? "#ffffff" : "#111111");
 
-const activeMegaMenu = ref<string | null>(null);
-const activeAccordion = ref<string | null>(null);
-
 const megaMenus: Record<
   string,
   {
     sidebar: { label: string; key: string | null; links: string[] }[];
     images: { src: string; label: string; discover: string }[];
+    products?: { name: string; image: string }[];
   }
 > = {
   "New In": {
@@ -554,6 +616,35 @@ const megaMenus: Record<
       },
     ],
   },
+  Bags: {
+    sidebar: [
+      { label: "View all", key: null, links: [] },
+      { label: "New In", key: null, links: [] },
+      { label: "Crossbody bags", key: null, links: [] },
+      { label: "Shoulder bags", key: null, links: [] },
+      { label: "Handbags", key: null, links: [] },
+      { label: "Clutches", key: null, links: [] },
+      { label: "Baskets & Raffia", key: null, links: [] },
+    ],
+    images: [
+      {
+        src: "/mega-bags.jpg",
+        label: '"The Valérie"',
+        discover: "Discover the collection",
+      },
+    ],
+    products: [
+      { name: "The Valéries", image: "/bag-1.webp" },
+      { name: "The Bambinos", image: "/bag-2.jpg" },
+      { name: "Baskets & Raffia", image: "/bag-3.jpg" },
+      { name: "The Rond Carré clutch", image: "/bag-4.jpg" },
+      { name: "The Turismos", image: "/bag-5.jpg" },
+      { name: "The Bisous", image: "/bag-6.jpg" },
+      { name: "The Salons", image: "/bag-7.jpg" },
+      { name: "The Chiquitos", image: "/bag-8.jpg" },
+      { name: "The Berlingot", image: "/bag-9.jpg" },
+    ],
+  },
 };
 
 const openMegaMenu = (label: string) => {
@@ -567,14 +658,6 @@ const closeMegaMenu = () => {
   activeMegaMenu.value = null;
   activeAccordion.value = null;
 };
-
-watch(activeMegaMenu, (value) => {
-  if (value) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "";
-  }
-});
 </script>
 
 <style scoped>
