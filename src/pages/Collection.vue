@@ -34,7 +34,7 @@
           style="padding: 0.6rem 1rem; font-size: 16px"
           :style="{
             color: 'var(--text-primary)',
-            borderBottom: '1px solid var(--border)',
+           
           }"
         >
           {{ item }}
@@ -48,37 +48,29 @@
           overflow-x: auto;
           margin-top: 1rem;
           scrollbar-width: none;
-          gap: 1rem;
+          gap: 0.5rem;
         "
       >
         <div
           v-for="product in bagProducts"
           :key="product.name"
-          class="cursor-pointer shrink-0"
+          class="cursor-pointer flex-shrink-0 group"
+          style="width: 40vw"
           :style="{ borderRight: '1px solid var(--border)' }"
         >
-          <div
-            style="
-              aspect-ratio: 1/1;
-              overflow: hidden;
-              background-color: var(--bg-secondary);
-              height: 56vw;
-              width: 42vw;
-              position: relative;
-            "
-          >
+          <div style="overflow: hidden; background-color: var(--bg-secondary)">
             <img
               :src="product.image"
               :alt="product.name"
               class="w-full h-full object-cover"
             />
-            <p
-              class="absolute top-2 left-2 text-xs"
-              :style="{ color: 'var(--text-primary)' }"
-            >
-              {{ product.name }}
-            </p>
           </div>
+          <p
+            class="text-[14px] py-1.5 px-2 transition-opacity duration-200 group-hover:opacity-50"
+            :style="{ color: isDark ? '#ffffff' : 'var(--text-primary)' }"
+          >
+            {{ product.name }}
+          </p>
         </div>
       </div>
     </div>
@@ -162,6 +154,8 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import { useTheme } from "../composables/useTheme";
+const { isDark } = useTheme();
 
 const route = useRoute();
 const activeAccordion = ref<string | null>(null);
@@ -199,15 +193,15 @@ const bagCategories = [
 ];
 
 const bagProducts = [
-  { name: "The Valéries", image: "/bag-1.webp" },
-  { name: "The Bambinos", image: "/bag-2.webp" },
-  { name: "Baskets & Raffia", image: "/bag-3.jpg" },
-  { name: "The Rond Carré clutch", image: "/bag-4.jpg" },
-  { name: "The Turismos", image: "/bag-5.jpg" },
-  { name: "The Bisous", image: "/bag-6.jpg" },
-  { name: "The Salons", image: "/bag-7.jpg" },
-  { name: "The Chiquitos", image: "/bag-8.jpg" },
-  { name: "The Berlingot", image: "/bag-9.jpg" },
+  { name: "The Valéries", image: "/bag-1.avif" },
+  { name: "The Bambinos", image: "/bag-2.avif" },
+  { name: "Baskets & Raffia", image: "/bag-3.avif" },
+  { name: "The Rond Carré clutch", image: "/bag-4.avif" },
+  { name: "The Turismos", image: "/bag-5.avif" },
+  { name: "The Bisous", image: "/bag-6.avif" },
+  { name: "The Salons", image: "/bag-7.avif" },
+  { name: "The Chiquitos", image: "/bag-8.avif" },
+  { name: "The Berlingot", image: "/bag-9.avif" },
 ];
 
 // New In / Women / Men

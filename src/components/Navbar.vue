@@ -163,14 +163,9 @@
             >
               <!-- Accordion Header -->
               <button
-                class="flex items-center justify-between w-full text-left py-2 transition-opacity duration-200 hover:opacity-60"
+                class="flex items-center justify-between w-full text-left !py-2 transition-opacity duration-200  group"
                 :style="{
-                  color: isDark ? '#ffffff' : '#111111',
-                  textDecoration:
-                    activeAccordion === item.key && item.key
-                      ? 'underline'
-                      : 'none',
-                  textUnderlineOffset: '3px',
+                  color: 'var(--text-primary)',
                   fontSize: '13px',
                 }"
                 @click="
@@ -180,13 +175,19 @@
                     : null
                 "
               >
-                {{ item.label }}
+                <span class="relative">
+                  {{ item.label }}
+                  <span
+                    class="absolute bottom-0 left-0 h-[1px] w-0 group-hover:w-full transition-all duration-300 ease-in-out"
+                    :style="{ backgroundColor: isDark ? '#ffffff' : '#111111' }"
+                  ></span>
+                </span>
                 <ChevronDown
                   v-if="item.links.length > 0"
                   :size="13"
                   class="transition-transform duration-300 shrink-0"
                   :style="{
-                    color: isDark ? '#ffffff' : '#111111',
+                    color: 'var(--text-secondary)',
                     transform:
                       activeAccordion === item.key
                         ? 'rotate(180deg)'
@@ -221,32 +222,47 @@
           <!-- Middle: Product Grid — only for Bags -->
           <div
             v-if="megaMenus[activeMegaMenu]?.products"
-            class="flex-1 !p-20 h-full"
+            class="flex-1 h-full"
             :style="{ borderRight: `1px solid ${isDark ? '#333' : '#e5e5e5'}` }"
           >
-            <div class="grid grid-cols-3 gap-3">
+            <div class="grid grid-cols-3 gap-1" style="width: 28rem">
               <div
                 v-for="product in megaMenus[activeMegaMenu]?.products"
                 :key="product.name"
                 class="cursor-pointer group"
-                :style="{
-                  borderBottom: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
-                  borderRight: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
-                }"
               >
-                <div class="relative overflow-hidden" style="aspect-ratio: 1/1">
+                <div
+                  class="overflow-hidden"
+                  style="
+                    width: 100%;
+                    height: 160px;
+                    background-color: var(--bg-secondary);
+                  "
+                >
                   <img
                     :src="product.image"
                     :alt="product.name"
                     class="w-full h-full object-cover"
                   />
-                  <p
-                    class="absolute top-27 left-2 text-[10px]"
-                    :style="{ color: 'var(--text-primary)' }"
+                </div>
+                <p class="text-sm font-light !py-1 px-1">
+                  <span
+                    class="relative inline-block transition-opacity duration-200"
+                    :style="{
+                      color: isDark ? '#ffffff' : 'var(--text-primary)',
+                    }"
                   >
                     {{ product.name }}
-                  </p>
-                </div>
+                    <span
+                      class="absolute bottom-0 left-0 h-[1px] w-0 group-hover:w-full transition-all duration-300 ease-in-out"
+                      :style="{
+                        backgroundColor: isDark
+                          ? '#ffffff'
+                          : 'var(--text-primary)',
+                      }"
+                    ></span>
+                  </span>
+                </p>
               </div>
             </div>
           </div>
@@ -255,7 +271,7 @@
           <div
             :class="
               megaMenus[activeMegaMenu]?.products
-                ? 'w-[380px] shrink-0'
+                ? 'w-[550px] shrink-0'
                 : 'flex flex-1'
             "
             class="h-full"
@@ -628,21 +644,21 @@ const megaMenus: Record<
     ],
     images: [
       {
-        src: "/bag-1.webp",
-        label: '"The Valérie"',
+        src: "/bagmodel.webp",
+        label: '"Valentino Nellcôte bag"',
         discover: "Discover the collection",
       },
     ],
     products: [
-      { name: "The Valéries", image: "/bag-1.webp" },
-      { name: "The Bambinos", image: "/bag-2.webp" },
-      { name: "Baskets & Raffia", image: "/bag-3.jpg" },
-      { name: "The Rond Carré clutch", image: "/bag-4.jpg" },
-      { name: "The Turismos", image: "/bag-5.jpg" },
-      { name: "The Bisous", image: "/bag-6.jpg" },
-      { name: "The Salons", image: "/bag-7.jpg" },
-      { name: "The Chiquitos", image: "/bag-8.jpg" },
-      { name: "The Berlingot", image: "/bag-9.jpg" },
+      { name: "The Valéries", image: "/bag-1.avif" },
+      { name: "The Bambinos", image: "/bag-2.avif" },
+      { name: "Baskets & Raffia", image: "/bag-3.avif" },
+      { name: "The Rond Carré clutch", image: "/bag-4.avif" },
+      { name: "The Turismos", image: "/bag-5.avif" },
+      { name: "The Bisous", image: "/bag-6.avif" },
+      { name: "The Salons", image: "/bag-7.avif" },
+      { name: "The Chiquitos", image: "/bag-8.avif" },
+      { name: "The Berlingot", image: "/bag-9.avif" },
     ],
   },
 };
