@@ -163,7 +163,7 @@
             >
               <!-- Accordion Header -->
               <button
-                class="flex items-center justify-between w-full text-left !py-2 transition-opacity duration-200  group"
+                class="flex items-center justify-between w-full text-left !py-2 group"
                 :style="{
                   color: 'var(--text-primary)',
                   fontSize: '13px',
@@ -175,8 +175,20 @@
                     : null
                 "
               >
-                <span class="relative">
+                <span class="relative flex items-center gap-2">
                   {{ item.label }}
+                  <!-- NEW badge -->
+                  <span
+                    v-if="item.isNew"
+                    class="text-[9px] font-medium px-1 py-0.5 rounded"
+                    style="
+                      background-color: #ff4d4d;
+                      color: #ffffff;
+                      line-height: 1;
+                    "
+                  >
+                    NEW
+                  </span>
                   <span
                     class="absolute bottom-0 left-0 h-[1px] w-0 group-hover:w-full transition-all duration-300 ease-in-out"
                     :style="{ backgroundColor: isDark ? '#ffffff' : '#111111' }"
@@ -279,7 +291,7 @@
             <div
               v-for="image in megaMenus[activeMegaMenu]?.images"
               :key="image.label"
-              class="relative overflow-hidden cursor-pointer h-full !px-12"
+              class="relative overflow-hidden cursor-pointer h-full !pr-6"
               :class="megaMenus[activeMegaMenu]?.products ? 'w-full' : 'flex-1'"
             >
               <img
@@ -546,7 +558,12 @@ const getNavIconColor = () => (isDark.value ? "#ffffff" : "#111111");
 const megaMenus: Record<
   string,
   {
-    sidebar: { label: string; key: string | null; links: string[] }[];
+    sidebar: {
+      label: string;
+      key: string | null;
+      links: string[];
+      isNew?: boolean;
+    }[];
     images: { src: string; label: string; discover: string }[];
     products?: { name: string; image: string }[];
   }
@@ -578,7 +595,7 @@ const megaMenus: Record<
       },
     ],
   },
-  Women: {
+  Woomen: {
     sidebar: [
       {
         label: "Women - New In",
@@ -608,27 +625,57 @@ const megaMenus: Record<
   Men: {
     sidebar: [
       {
-        label: "Women - New In",
-        key: "women-new-in",
-        links: ["View all", "Bags", "Ready-to-wear", "Accessories & Shoes"],
+        label: '"Summer of Sport" - New In',
+        key: null,
+        links: [],
+        isNew: true,
+      },
+      { label: '"Plage" - New In', key: null, links: [], isNew: true },
+      { label: "Summer Accessories", key: null, links: [] },
+      { label: "Ceremony", key: null, links: [] },
+      {
+        label: "Ready-to-wear",
+        key: "men-rtw",
+        links: [
+          "View all",
+          "New In",
+          "Tops",
+          "Bottoms",
+          "Knitwear",
+          "Swimwear",
+        ],
+      },
+      { label: "Bags", key: null, links: [] },
+      {
+        label: "Shoes",
+        key: "men-shoes",
+        links: [
+          "View all",
+          "New In",
+          "Sneakers",
+          "Sandals",
+          "Loafers",
+          "Boots",
+        ],
       },
       {
-        label: "Men - New In",
-        key: "men-new-in",
-        links: ["View all", "Ready-to-wear", "Accessories & Bags", "Shoes"],
+        label: "Accessories",
+        key: "men-accessories",
+        links: ["View all", "New In", "Belts", "Hats", "Jewellery", "Scarves"],
       },
-      { label: "New Bags", key: null, links: [] },
+      { label: "Gifts", key: null, links: [] },
+      { label: "Les Classiques", key: null, links: [] },
     ],
     images: [
       {
-        src: "/mega-women.jpg",
-        label: "Women",
-        discover: "Discover the novelties",
+        src: "/alpha-man.jpg",
+        label: "New In",
+        discover: "Discover the men collection",
       },
       {
-        src: "/mega-men.jfif",
-        label: "Men",
-        discover: "Discover the men novelties",
+        src: "/alpha2-man.jpg",
+        label: '"The Féfé"',
+        discover: "Discover the collection",
       },
     ],
   },
@@ -659,6 +706,69 @@ const megaMenus: Record<
       { name: "The Salons", image: "/bag-7.avif" },
       { name: "The Chiquitos", image: "/bag-8.avif" },
       { name: "The Berlingot", image: "/bag-9.avif" },
+    ],
+  },
+  Women: {
+    sidebar: [
+      { label: '"Plage" - New In', key: null, links: [], isNew: true },
+      { label: "Summer Accessories", key: null, links: [] },
+      { label: "Ceremony", key: null, links: [] },
+      {
+        label: "Bags",
+        key: "women-bags",
+        links: [
+          "View all",
+          "New In",
+          "Crossbody bags",
+          "Shoulder bags",
+          "Handbags",
+          "Clutches",
+        ],
+      },
+      {
+        label: "Ready-to-wear",
+        key: "women-rtw",
+        links: [
+          "View all",
+          "New In",
+          "Tops",
+          "Bottoms",
+          "Dresses",
+          "Knitwear",
+          "Swimwear",
+        ],
+      },
+      {
+        label: "Shoes",
+        key: "women-shoes",
+        links: [
+          "View all",
+          "New In",
+          "Sandals",
+          "Boots",
+          "Sneakers",
+          "Loafers",
+        ],
+      },
+      {
+        label: "Accessories",
+        key: "women-accessories",
+        links: ["View all", "New In", "Scarves", "Belts", "Hats", "Jewellery"],
+      },
+      { label: "Gifts", key: null, links: [] },
+      { label: "Les Classiques", key: null, links: [] },
+    ],
+    images: [
+      {
+        src: "/menu-women.avif",
+        label: "New In",
+        discover: "Discover the women collection",
+      },
+      {
+        src: "/mega2-women.webp",
+        label: '"The Pochette Rond Carré"',
+        discover: "Discover the new collection",
+      },
     ],
   },
 };

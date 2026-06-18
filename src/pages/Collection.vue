@@ -34,7 +34,6 @@
           style="padding: 0.6rem 1rem; font-size: 16px"
           :style="{
             color: 'var(--text-primary)',
-           
           }"
         >
           {{ item }}
@@ -43,6 +42,7 @@
 
       <!-- Product Grid horizontal scroll -->
       <div
+        class="mt-0 md:!mt-35 lg:mt-0"
         style="
           display: flex;
           overflow-x: auto;
@@ -75,15 +75,179 @@
       </div>
     </div>
 
+    <!-- ===== WOMEN PAGE ===== -->
+    <div v-else-if="isWomen">
+      <!-- Categories with accordion + NEW badge -->
+      <div class="!mt-10">
+        <div
+          v-for="item in womenCategories"
+          :key="item.label"
+          :style="{ borderBottom: '1px solid var(--border)' }"
+        >
+          <button
+            class="flex items-center justify-between w-full text-left"
+            style="padding: 0.6rem; font-size: 16px"
+            :style="{ color: 'var(--text-primary)' }"
+            @click="item.key ? toggle(item.key) : null"
+          >
+            <span class="flex items-center gap-2">
+              {{ item.label }}
+              <span
+                v-if="item.isNew"
+                class="text-[9px] font-medium px-1 py-0.5 rounded"
+                style="
+                  background-color: #ff4d4d;
+                  color: #ffffff;
+                  line-height: 1;
+                "
+              >
+                NEW
+              </span>
+            </span>
+            <span v-if="item.links.length > 0" style="font-size: 11px">
+              {{ activeAccordion === item.key ? "∧" : "∨" }}
+            </span>
+          </button>
+          <div
+            v-if="item.links.length > 0"
+            class="flex flex-col overflow-hidden transition-all duration-300"
+            :style="
+              activeAccordion === item.key
+                ? 'max-height: 300px; opacity: 1'
+                : 'max-height: 0; opacity: 0'
+            "
+          >
+            <a
+              v-for="link in item.links"
+              :key="link"
+              href="#"
+              style="padding: 0.6rem 0.7rem; font-size: 15px"
+              :style="{
+                color: 'var(--text-secondary)',
+              }"
+              >{{ link }}</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Images -->
+      <div class="!mt-10 !px-4 grid grid-cols-2" style="height: 50vh; gap: 8px">
+        <div
+          v-for="image in womenImages"
+          :key="image.label"
+          class="relative overflow-hidden"
+        >
+          <img
+            :src="image.src"
+            :alt="image.label"
+            class="w-full h-full object-cover"
+          />
+          <div
+            class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent"
+          ></div>
+          <div class="absolute bottom-4 left-3">
+            <p class="text-white text-xs font-medium mb-1">{{ image.label }}</p>
+
+            <a
+              href="#"
+              class="!text-white"
+              style="font-size: 10px; text-decoration: underline"
+            >
+              {{ image.discover }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MEN PAGE ===== -->
+    <div v-else-if="isMen">
+      <div class="!mt-10">
+        <div
+          v-for="item in menCategories"
+          :key="item.label"
+          :style="{ borderBottom: '1px solid var(--border)' }"
+        >
+          <button
+            class="flex items-center justify-between w-full text-left"
+            style="padding: 0.6rem; font-size: 16px"
+            :style="{ color: 'var(--text-primary)' }"
+            @click="item.key ? toggle(item.key) : null"
+          >
+            <span class="flex items-center gap-2">
+              {{ item.label }}
+              <span
+                v-if="item.isNew"
+                class="text-[9px] font-medium px-1 py-0.5 rounded"
+                style="
+                  background-color: #ff4d4d;
+                  color: #ffffff;
+                  line-height: 1;
+                "
+              >
+                NEW
+              </span>
+            </span>
+            <span v-if="item.links.length > 0" style="font-size: 11px">
+              {{ activeAccordion === item.key ? "∧" : "∨" }}
+            </span>
+          </button>
+          <div
+            v-if="item.links.length > 0"
+            class="flex flex-col overflow-hidden transition-all duration-300"
+            :style="
+              activeAccordion === item.key
+                ? 'max-height: 300px; opacity: 1'
+                : 'max-height: 0; opacity: 0'
+            "
+          >
+            <a
+              v-for="link in item.links"
+              :key="link"
+              href="#"
+              style="padding: 0.6rem 0.7rem; font-size: 15px"
+              :style="{ color: 'var(--text-secondary)' }"
+              >{{ link }}</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="!mt-10 !px-4 grid grid-cols-2" style="height: 50vh; gap: 8px">
+        <div
+          v-for="image in menImages"
+          :key="image.label"
+          class="relative overflow-hidden"
+        >
+          <img
+            :src="image.src"
+            :alt="image.label"
+            class="w-full h-full object-cover"
+          />
+          <div
+            class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent"
+          ></div>
+          <div class="absolute bottom-4 left-3">
+            <p class="text-white text-xs font-medium mb-1">{{ image.label }}</p>
+
+            <a
+              href="#"
+              class="!text-white"
+              style="font-size: 10px; text-decoration: underline"
+            >
+              {{ image.discover }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ===== NEW IN / WOMEN / MEN PAGE ===== -->
     <div v-else>
       <!-- Categories — untouched -->
       <div class="!mt-10">
-        <div
-          v-for="item in categories"
-          :key="item.label"
-          :style="{ borderBottom: '1px solid var(--border)' }"
-        >
+        <div v-for="item in categories" :key="item.label">
           <button
             class="flex items-center justify-between w-full text-left"
             style="padding: 0.6rem; font-size: 16px"
@@ -108,10 +272,9 @@
               v-for="link in item.links"
               :key="link"
               href="#"
-              style="padding: 0.6rem 2rem; font-size: 13px"
+              style="padding: 0.6rem 0.7rem; font-size: 15px"
               :style="{
                 color: 'var(--text-secondary)',
-                borderBottom: '1px solid var(--border)',
               }"
               >{{ link }}</a
             >
@@ -204,6 +367,64 @@ const bagProducts = [
   { name: "The Berlingot", image: "/bag-9.avif" },
 ];
 
+const isWomen = computed(() => route.path === "/women");
+
+const womenCategories = [
+  { label: '"Plage" - New In', key: null, links: [], isNew: true },
+  { label: "Summer Accessories", key: null, links: [] },
+  { label: "Ceremony", key: null, links: [] },
+  {
+    label: "Bags",
+    key: "women-bags",
+    links: [
+      "View all",
+      "New In",
+      "Crossbody bags",
+      "Shoulder bags",
+      "Handbags",
+      "Clutches",
+    ],
+  },
+  {
+    label: "Ready-to-wear",
+    key: "women-rtw",
+    links: [
+      "View all",
+      "New In",
+      "Tops",
+      "Bottoms",
+      "Dresses",
+      "Knitwear",
+      "Swimwear",
+    ],
+  },
+  {
+    label: "Shoes",
+    key: "women-shoes",
+    links: ["View all", "New In", "Sandals", "Boots", "Sneakers", "Loafers"],
+  },
+  {
+    label: "Accessories",
+    key: "women-accessories",
+    links: ["View all", "New In", "Scarves", "Belts", "Hats", "Jewellery"],
+  },
+  { label: "Gifts", key: null, links: [] },
+  { label: "Les Classiques", key: null, links: [] },
+];
+
+const womenImages = [
+  {
+    src: "/menu-women.avif",
+    label: "New In",
+    discover: "Discover the women collection",
+  },
+  {
+    src: "/mega2-women.webp",
+    label: '"The Pochette Rond Carré"',
+    discover: "Discover the new collection",
+  },
+];
+
 // New In / Women / Men
 const categories = [
   {
@@ -229,6 +450,46 @@ const heroImages = [
     src: "/mega-men.jfif",
     label: "Men",
     discover: "Discover the men novelties",
+  },
+];
+
+const isMen = computed(() => route.path === "/men");
+
+const menCategories = [
+  { label: '"Summer of Sport" - New In', key: null, links: [], isNew: true },
+  { label: '"Plage" - New In', key: null, links: [], isNew: true },
+  { label: "Summer Accessories", key: null, links: [] },
+  { label: "Ceremony", key: null, links: [] },
+  {
+    label: "Ready-to-wear",
+    key: "men-rtw",
+    links: ["View all", "New In", "Tops", "Bottoms", "Knitwear", "Swimwear"],
+  },
+  { label: "Bags", key: null, links: [] },
+  {
+    label: "Shoes",
+    key: "men-shoes",
+    links: ["View all", "New In", "Sneakers", "Sandals", "Loafers", "Boots"],
+  },
+  {
+    label: "Accessories",
+    key: "men-accessories",
+    links: ["View all", "New In", "Belts", "Hats", "Jewellery", "Scarves"],
+  },
+  { label: "Gifts", key: null, links: [] },
+  { label: "Les Classiques", key: null, links: [] },
+];
+
+const menImages = [
+  {
+    src: "/alpha-man.jpg",
+    label: "New In",
+    discover: "Discover the men collection",
+  },
+  {
+    src: "/alpha2-man.jpg",
+    label: '"The Féfé"',
+    discover: "Discover the collection",
   },
 ];
 </script>
