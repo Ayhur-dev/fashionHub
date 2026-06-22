@@ -290,23 +290,40 @@
           >
             <div
               v-for="image in megaMenus[activeMegaMenu]?.images"
-              :key="image.label"
+              :key="image.src"
               class="relative overflow-hidden cursor-pointer h-full !pr-6"
               :class="megaMenus[activeMegaMenu]?.products ? 'w-full' : 'flex-1'"
             >
+              <!-- Video -->
+              <video
+                v-if="image.isVideo"
+                :src="image.src"
+                class="w-full h-full object-cover"
+                autoplay
+                muted
+                loop
+                playsinline
+              ></video>
+
               <img
+                v-else
                 :src="image.src"
                 :alt="image.label"
                 class="w-full h-full object-cover"
               />
               <div class="absolute inset-0"></div>
-              <div class="!p-10 absolute bottom-6 left-6 z-10">
+              <div
+                v-if="image.label"
+                class="!p-10 absolute bottom-6 left-6 z-10"
+              >
                 <p class="text-white text-sm font-medium mb-1">
                   {{ image.label }}
                 </p>
+
                 <a
+                  v-if="image.discover"
                   href="#"
-                  class="!text-white text-xs"
+                  class="text-white! text-xs"
                   style="text-decoration: underline; text-underline-offset: 3px"
                 >
                   {{ image.discover }}
@@ -564,7 +581,12 @@ const megaMenus: Record<
       links: string[];
       isNew?: boolean;
     }[];
-    images: { src: string; label: string; discover: string }[];
+    images: {
+      src: string;
+      label: string;
+      discover: string;
+      isVideo?: boolean;
+    }[];
     products?: { name: string; image: string }[];
   }
 > = {
@@ -769,6 +791,50 @@ const megaMenus: Record<
         label: '"The Pochette Rond Carré"',
         discover: "Discover the new collection",
       },
+    ],
+  },
+  Gifts: {
+    sidebar: [
+      { label: "Women's Gifts", key: null, links: [] },
+      { label: "Men's Gifts", key: null, links: [] },
+      { label: "Small Gifts", key: null, links: [] },
+      { label: "Objects", key: null, links: [] },
+      { label: "Gift Card", key: null, links: [] },
+    ],
+    images: [
+      {
+        src: "/mega-gifts-women.webp",
+        label: '"Gifts for women"',
+        discover: "Discover the collection",
+      },
+      {
+        src: "/mega-gifts-men.jpg",
+        label: '"Gifts for men"',
+        discover: "Discover the collection",
+      },
+    ],
+  },
+  Explore: {
+    sidebar: [
+      { label: "Collections", key: null, links: [] },
+      { label: "The House", key: null, links: [] },
+      { label: "The Brand Ambassador, Liline Jacquemus", key: null, links: [] },
+      { label: "The Jacquemus Office", key: null, links: [] },
+      { label: "The Boutiques", key: null, links: [] },
+      {
+        label: "Our Savoir-faire",
+        key: "savoir-faire",
+        links: ["Atelier", "Materials", "Craftsmanship"],
+      },
+    ],
+    images: [
+      {
+        src: "/mega-explore.mp4",
+        label: '"Le Palmier"',
+        discover: "",
+        isVideo: true,
+      },
+      { src: "/mega-explore2.webp", label: "", discover: "" },
     ],
   },
 };

@@ -233,6 +233,135 @@
 
             <a
               href="#"
+              class="text-white!"
+              style="font-size: 10px; text-decoration: underline"
+            >
+              {{ image.discover }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== GIFTS PAGE ===== -->
+    <div v-else-if="isGifts">
+      <!-- Plain links no accordion -->
+      <div class="!mt-10">
+        <a
+          v-for="item in giftsCategories"
+          :key="item"
+          href="#"
+          class="block transition-opacity hover:opacity-60"
+          style="padding: 0.6rem; font-size: 16px"
+          :style="{
+            color: 'var(--text-primary)',
+            borderBottom: '1px solid var(--border)',
+          }"
+        >
+          {{ item }}
+        </a>
+      </div>
+
+      <!-- Images with labels overlaid -->
+      <div class="!mt-10 !px-4 grid grid-cols-2" style="height: 50vh; gap: 8px">
+        <div
+          v-for="image in giftsImages"
+          :key="image.label"
+          class="relative overflow-hidden cursor-pointer"
+        >
+          <img
+            :src="image.src"
+            :alt="image.label"
+            class="w-full h-full object-cover"
+          />
+          <div
+            class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent"
+          ></div>
+          <div class="absolute bottom-4 left-3">
+            <p class="text-white text-xs font-medium mb-1">{{ image.label }}</p>
+
+            <a
+              href="#"
+              class="!text-white"
+              style="font-size: 10px; text-decoration: underline"
+            >
+              {{ image.discover }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== EXPLORE PAGE ===== -->
+    <div v-else-if="isExplore">
+      <div class="!mt-10">
+        <div
+          v-for="item in exploreCategories"
+          :key="item.label"
+          :style="{ borderBottom: '1px solid var(--border)' }"
+        >
+          <button
+            class="flex items-center justify-between w-full text-left"
+            style="padding: 0.6rem; font-size: 16px"
+            :style="{ color: 'var(--text-primary)' }"
+            @click="item.key ? toggle(item.key) : null"
+          >
+            <span>{{ item.label }}</span>
+            <span v-if="item.links.length > 0" style="font-size: 11px">
+              {{ activeAccordion === item.key ? "∧" : "∨" }}
+            </span>
+          </button>
+          <div
+            v-if="item.links.length > 0"
+            class="flex flex-col overflow-hidden transition-all duration-300"
+            :style="
+              activeAccordion === item.key
+                ? 'max-height: 200px; opacity: 1'
+                : 'max-height: 0; opacity: 0'
+            "
+          >
+            <a
+              v-for="link in item.links"
+              :key="link"
+              href="#"
+              style="padding: 0.6rem 0.7rem; font-size: 15px"
+              :style="{ color: 'var(--text-secondary)' }"
+              >{{ link }}</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="!mt-10 !px-4 grid grid-cols-2" style="height: 50vh; gap: 8px">
+        <div
+          v-for="image in exploreImages"
+          :key="image.src"
+          class="relative overflow-hidden cursor-pointer"
+        >
+          <video
+            v-if="image.isVideo"
+            :src="image.src"
+            class="w-full h-full object-cover"
+            autoplay
+            muted
+            loop
+            playsinline
+          ></video>
+          <img
+            v-else
+            :src="image.src"
+            :alt="image.label"
+            class="w-full h-full object-cover"
+          />
+          <div
+            class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent"
+          ></div>
+          <div v-if="image.label" class="absolute bottom-4 left-3">
+            <p class="text-white text-xs font-medium mb-1">{{ image.label }}</p>
+
+            <a
+              v-if="image.discover"
+              href="#"
               class="!text-white"
               style="font-size: 10px; text-decoration: underline"
             >
@@ -302,7 +431,7 @@
 
             <a
               href="#"
-              class="!text-white"
+              class="text-white!"
               style="font-size: 10px; text-decoration: underline"
             >
               {{ image.discover }}
@@ -491,5 +620,52 @@ const menImages = [
     label: '"The Féfé"',
     discover: "Discover the collection",
   },
+];
+
+const isGifts = computed(() => route.path === "/gifts");
+
+const giftsCategories = [
+  "Women's Gifts",
+  "Men's Gifts",
+  "Small Gifts",
+  "Objects",
+  "Gift Card",
+];
+
+const giftsImages = [
+  {
+    src: "/mega-gifts-women.webp",
+    label: '"Gifts for women"',
+    discover: "Discover the collection",
+  },
+  {
+    src: "/mega-gifts-men.jpg",
+    label: '"Gifts for men"',
+    discover: "Discover the collection",
+  },
+];
+
+const isExplore = computed(() => route.path === "/explore");
+
+const exploreCategories = [
+  { label: "Collections", key: null, links: [] },
+  { label: "The House", key: null, links: [] },
+  { label: "The Brand Ambassador, Liline Jacquemus", key: null, links: [] },
+  { label: "The Jacquemus Office", key: null, links: [] },
+  { label: "The Boutiques", key: null, links: [] },
+  {
+    label: "Our Savoir-faire",
+    key: "savoir-faire",
+    links: ["Atelier", "Materials", "Craftsmanship"],
+  },
+];
+const exploreImages = [
+  {
+    src: "/mega-explore.mp4",
+    label: '"Le Palmier"',
+    discover: "",
+    isVideo: true,
+  },
+  { src: "/mega-explore2.webp", label: "", discover: "", isVideo: false },
 ];
 </script>
