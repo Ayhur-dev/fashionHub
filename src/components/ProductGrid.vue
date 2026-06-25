@@ -9,6 +9,7 @@
         style="background-color: var(--bg-secondary); aspect-ratio: 3/4"
         @mouseenter="hoveredIndex = index"
         @mouseleave="hoveredIndex = null"
+        @click="$router.push(`/product/${product.id}`)"
       >
         <!-- Tag top left -->
         <div class="absolute top-3 left-3 z-10 flex flex-col gap-1">
@@ -102,7 +103,7 @@
               {{ product.price }} USD
             </p>
           </div>
-          <button class="flex-shrink-0" style="color: var(--text-secondary)">
+          <button class="shrink-0" style="color: var(--text-secondary)">
             <Heart :size="16" />
           </button>
         </div>

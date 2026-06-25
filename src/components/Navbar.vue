@@ -8,20 +8,17 @@
         paddingRight: '1.4rem',
         backgroundColor:
           activeMegaMenu || !scrolled ? 'var(--nav-bg)' : 'transparent',
-        borderBottom: activeMegaMenu
-          ? `1px solid ${isDark ? '#333' : '#e5e5e5'}`
-          : scrolled
-            ? 'none'
-            : `1px solid var(--border)`,
+
         opacity: navVisible ? '1' : '0',
         pointerEvents: navVisible ? 'auto' : 'none',
         transform: navVisible ? 'translateY(0)' : 'translateY(-100%)',
       }"
     >
       <!-- Desktop Navbar -->
-      <div class="hidden lg:flex items-center justify-between h-[82px]">
+      <div class="hidden lg:flex items-center justify-between h-20.5">
         <RouterLink
           to="/"
+          @click.stop="closeMegaMenu"
           class="font-black text-[22px] tracking-[0.15em] uppercase shrink-0"
           :style="{
             fontFamily: 'Inter, sans-serif',
@@ -45,7 +42,7 @@
           >
             {{ link.label }}
             <span
-              class="absolute bottom-0 left-0 h-[1px] transition-all duration-300 ease-in-out"
+              class="absolute bottom-0 left-0 h-px transition-all duration-300 ease-in-out"
               :class="
                 activeMegaMenu === link.label
                   ? 'w-full'
@@ -101,6 +98,7 @@
       <div class="flex lg:hidden items-center justify-between h-20">
         <RouterLink
           to="/"
+          @click.stop="closeMegaMenu"
           class="font-black text-[17px] tracking-[0.15em] uppercase"
           :style="{
             fontFamily: 'Inter, sans-serif',
