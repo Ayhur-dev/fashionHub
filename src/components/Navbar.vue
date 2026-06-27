@@ -6,9 +6,11 @@
       :style="{
         paddingLeft: '1.4rem',
         paddingRight: '1.4rem',
-        backgroundColor:
-          activeMegaMenu || !scrolled ? 'var(--nav-bg)' : 'transparent',
-
+        backgroundColor: props.transparent
+          ? 'transparent'
+          : activeMegaMenu || !scrolled
+            ? 'var(--nav-bg)'
+            : 'transparent',
         opacity: navVisible ? '1' : '0',
         pointerEvents: navVisible ? 'auto' : 'none',
         transform: navVisible ? 'translateY(0)' : 'translateY(-100%)',
@@ -843,6 +845,13 @@ const openMegaMenu = (label: string) => {
     activeAccordion.value = null;
   }
 };
+
+const props = defineProps({
+  transparent: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 const closeMegaMenu = () => {
   activeMegaMenu.value = null;

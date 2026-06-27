@@ -81,3 +81,52 @@ button {
     padding: 1rem 1.5rem !important;
   }
 }
+
+@font-face {
+  font-family: "Futura PT";
+  src: url("./assets/fonts/FuturaCyrillicLight.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Futura PT";
+  src: url("./assets/fonts/FuturaCyrillicBook.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Futura PT";
+  src: url("./assets/fonts/FuturaCyrillicMedium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Futura PT";
+  src: url("./assets/fonts/FuturaCyrillicDemi.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Futura PT";
+  src: url("./assets/fonts/FuturaCyrillicBold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Futura PT";
+  src: url("./assets/fonts/FuturaCyrillicExtraBold.ttf") format("truetype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "Futura PT";
+  src: url("./assets/fonts/FuturaCyrillicHeavy.ttf") format("truetype");
+  font-weight: 900;
+}
+
+
+
+
+body {
+  font-family: "Futura PT", sans-serif !important;
+}

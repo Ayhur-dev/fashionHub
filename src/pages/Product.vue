@@ -1,13 +1,6 @@
 <template>
-  <div
-    style="
-      background-color: var(--bg);
-      min-height: 100vh;
-      font-family: &quot;Inter&quot;, sans-serif;
-    "
-  >
-    " > " >
-    <Navbar />
+  <div style="background-color: var(--bg); min-height: 100vh">
+    <Navbar :transparent="true" />
 
     <!-- ===== DESKTOP LAYOUT ===== -->
     <div class="hidden lg:flex" style="padding-top: 82px">
@@ -66,20 +59,20 @@
           style="max-width: 500px; padding: 2rem 0 3rem"
         >
           <h1
-            class="text-lg font-lighter mb-4!"
+            class="text-3xl tracking-normal font-book mb-4!"
             :style="{ color: 'var(--text-primary)' }"
           >
             {{ product.name }}
           </h1>
 
           <p
-            class="text-xs font-lighter mb-3! leading-relaxed"
+            class="text-lg font-light mb-3! leading-relaxed"
             :style="{ color: 'var(--text-primary)' }"
           >
             {{ product.shortDescription }}
           </p>
           <p
-            class="text-xs mb-6! leading-relaxed"
+            class="text-lg font-light mb-6! leading-relaxed"
             :style="{ color: 'var(--text-primary)' }"
           >
             {{ product.shortDescription2 }}
@@ -88,7 +81,7 @@
           <!-- Color -->
           <div class="mb-4!">
             <p
-              class="text-sm font-lighter mb-4!"
+              class="text-sm font-light mb-4!"
               :style="{ color: 'var(--text-primary)' }"
             >
               {{ selectedColor }}
@@ -113,7 +106,7 @@
               ></div>
               <a
                 href="#"
-                class="text-xs font-lighter ml-auto! group"
+                class="text-xs font-extralight ml-auto! group"
                 :style="{ color: 'var(--text-primary)' }"
               >
                 <span class="relative">
@@ -134,7 +127,7 @@
           <!-- See other sizes -->
           <div class="mb-6!">
             <p
-              class="text-sm font-lighter mb-4!"
+              class="text-sm font-book mb-4!"
               :style="{ color: 'var(--text-primary)' }"
             >
               See other sizes
@@ -170,7 +163,7 @@
                   />
                 </div>
                 <p
-                  class="text-[9px] font-lighter leading-tight"
+                  class="text-[11px] font-book leading-tight"
                   :style="{ color: 'var(--text-primary)' }"
                 >
                   {{ size.name }}
@@ -213,13 +206,60 @@
               }"
             >
               <span
-                class="flex items-center gap-2 text-xs font-lighter tracking-widest uppercase"
+                class="flex items-center gap-2 text-xs font-extralight tracking-widest uppercase"
               >
-                <ShoppingBag :size="16" />
+                <ShoppingBag :size="11" />
                 Add to cart
               </span>
-              <span class="text-sm font-lighter">{{ product.price }} USD</span>
+              <span class="text-sm font-extralight"
+                >{{ product.price }} USD</span
+              >
             </button>
+          </div>
+
+          <!-- Details / Delivery / Assistance -->
+          <div class="flex items-center gap-14 py-4!">
+            <a
+              href="#"
+              class="text-sm font-book relative group transition-opacity"
+              :style="{ color: 'var(--text-primary)' }"
+            >
+              <span class="relative">
+                Details
+                <span
+                  class="absolute bottom-0 left-0 h-px w-0 group-hover:w-full transition-all duration-300 ease-in-out"
+                  :style="{ backgroundColor: 'var(--text-primary)' }"
+                ></span>
+              </span>
+            </a>
+
+            <a
+              href="#"
+              class="text-sm font-book relative group transition-opacity"
+              :style="{ color: 'var(--text-primary)' }"
+            >
+              <span class="relative">
+                Delivery and Returns
+                <span
+                  class="absolute bottom-0 left-0 h-px w-0 group-hover:w-full transition-all duration-300 ease-in-out"
+                  :style="{ backgroundColor: 'var(--text-primary)' }"
+                ></span>
+              </span>
+            </a>
+
+            <a
+              href="#"
+              class="text-sm font-book relative group transition-opacity"
+              :style="{ color: 'var(--text-primary)' }"
+            >
+              <span class="relative">
+                Assistance
+                <span
+                  class="absolute bottom-0 left-0 h-px w-0 group-hover:w-full transition-all duration-300 ease-in-out"
+                  :style="{ backgroundColor: 'var(--text-primary)' }"
+                ></span>
+              </span>
+            </a>
           </div>
         </div>
       </div>
@@ -229,15 +269,17 @@
     <div class="hidden lg:block">
       <div style="padding: 3rem 0 1rem 0">
         <p
-          class="text-sm mb-8! cursor-pointer transition-opacity hover:opacity-60"
+          class="text-sm mb-8! cursor-pointer group transition-opacity"
           style="padding-left: 2rem"
-          :style="{
-            color: 'var(--text-primary)',
-            textDecoration: 'underline',
-            textUnderlineOffset: '3px',
-          }"
+          :style="{ color: 'var(--text-primary)' }"
         >
-          Complete the look
+          <span class="relative inline-block font-extralight">
+            Complete the look
+            <span
+              class="absolute bottom-0 left-0 h-px w-0 group-hover:w-full transition-all duration-300 ease-in-out"
+              :style="{ backgroundColor: 'var(--text-primary)' }"
+            ></span>
+          </span>
         </p>
         <div class="grid grid-cols-4">
           <div
@@ -370,7 +412,7 @@
     </div>
 
     <!-- ===== MOBILE LAYOUT ===== -->
-    <div class="lg:hidden" style="padding-top: 70px; padding-bottom: 80px">
+    <div class="lg:hidden" style="padding-bottom: 80px">
       <!-- Image Swiper -->
       <div
         class="relative overflow-hidden w-full"
@@ -412,20 +454,17 @@
 
       <!-- Product name + wishlist -->
       <div
-        class="flex items-center justify-between px-4 py-3"
+        class="flex items-center justify-between !px-4 !py-7"
         :style="{ borderBottom: '1px solid var(--border)' }"
       >
-        <p
-          class="text-sm font-medium"
-          :style="{ color: 'var(--text-primary)' }"
-        >
+        <p class="text-md font-book" :style="{ color: 'var(--text-primary)' }">
           {{ product.name }}
         </p>
         <Heart :size="18" :style="{ color: 'var(--text-secondary)' }" />
       </div>
 
       <!-- Details -->
-      <div class="px-4 py-6 flex flex-col gap-5">
+      <div class="px-4! py-6! flex flex-col gap-5">
         <!-- Short description centered -->
         <p
           class="text-sm leading-relaxed text-center"
@@ -448,7 +487,7 @@
           >
             {{ selectedColor }}
           </p>
-          <div class="flex items-center gap-2">
+          <div class="flex pb-4! items-center gap-2">
             <div
               v-for="color in product.colors"
               :key="color.hex"
@@ -483,7 +522,7 @@
         <div :style="{ borderTop: '1px solid var(--border)' }"></div>
 
         <!-- See other sizes -->
-        <div>
+        <!-- <div>
           <p
             class="text-sm mb-4 text-center"
             :style="{ color: 'var(--text-primary)' }"
@@ -525,12 +564,12 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Full details centered -->
         <div class="text-center">
           <ul
-            class="text-sm space-y-1.5 inline-block text-left"
+            class="text-sm text-center leading-8 space-y-1.5 inline-block"
             :style="{ color: 'var(--text-primary)' }"
           >
             <li v-for="detail in product.details" :key="detail">
@@ -660,11 +699,11 @@
 
     <!-- Sticky Add to Cart Mobile -->
     <div
-      class="lg:hidden fixed bottom-0 left-0 right-0 z-40"
-      :style="{ backgroundColor: 'var(--text-primary)' }"
+      class="m-auto! lg:hidden w-[90%] fixed bottom-3 left-0 right-0 z-40"
+      :style="{ backgroundColor: 'var(--button-bg)' }"
     >
       <button
-        class="w-full flex items-center justify-between px-5 py-4"
+        class="w-full flex items-center justify-between px-5! py-4!"
         :style="{ color: 'var(--bg)' }"
       >
         <span
