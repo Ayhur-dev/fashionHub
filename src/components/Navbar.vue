@@ -163,7 +163,7 @@
             >
               <!-- Accordion Header -->
               <button
-                class="flex items-center justify-between w-full text-left !py-2 group"
+                class="flex items-center justify-between w-full text-left py-2! group"
                 :style="{
                   color: 'var(--text-primary)',
                   fontSize: '13px',
@@ -190,7 +190,7 @@
                     NEW
                   </span>
                   <span
-                    class="absolute bottom-0 left-0 h-[1px] w-0 group-hover:w-full transition-all duration-300 ease-in-out"
+                    class="absolute bottom-0 left-0 h-px w-0 group-hover:w-full transition-all duration-300 ease-in-out"
                     :style="{ backgroundColor: isDark ? '#ffffff' : '#111111' }"
                   ></span>
                 </span>
@@ -257,7 +257,7 @@
                     class="w-full h-full object-cover"
                   />
                 </div>
-                <p class="text-sm font-light !py-1 px-1">
+                <p class="text-sm font-light py-1! px-1">
                   <span
                     class="relative inline-block transition-opacity duration-200"
                     :style="{
@@ -266,7 +266,7 @@
                   >
                     {{ product.name }}
                     <span
-                      class="absolute bottom-0 left-0 h-[1px] w-0 group-hover:w-full transition-all duration-300 ease-in-out"
+                      class="absolute bottom-0 left-0 h-px w-0 group-hover:w-full transition-all duration-300 ease-in-out"
                       :style="{
                         backgroundColor: isDark
                           ? '#ffffff'
@@ -283,7 +283,7 @@
           <div
             :class="
               megaMenus[activeMegaMenu]?.products
-                ? 'w-[550px] shrink-0'
+                ? 'w-137.5 shrink-0'
                 : 'flex flex-1'
             "
             class="h-full"
@@ -291,7 +291,7 @@
             <div
               v-for="image in megaMenus[activeMegaMenu]?.images"
               :key="image.src"
-              class="relative overflow-hidden cursor-pointer h-full !pr-6"
+              class="relative overflow-hidden cursor-pointer h-full pr-6!"
               :class="megaMenus[activeMegaMenu]?.products ? 'w-full' : 'flex-1'"
             >
               <!-- Video -->
@@ -314,7 +314,7 @@
               <div class="absolute inset-0"></div>
               <div
                 v-if="image.label"
-                class="!p-10 absolute bottom-6 left-6 z-10"
+                class="p-10! absolute bottom-6 left-6 z-10"
               >
                 <p class="text-white text-sm font-medium mb-1">
                   {{ image.label }}
@@ -356,7 +356,7 @@
       >
         <!-- Top: Logo + Close -->
         <div
-          class="flex items-center justify-between h-[70px] shrink-0"
+          class="flex items-center justify-between h-17.5 shrink-0"
           style="padding-left: 1.5rem; padding-right: 1.5rem"
         >
           <RouterLink
@@ -517,11 +517,28 @@ const { isDark, toggleTheme } = useTheme();
 const isOpen = ref(false);
 const scrolled = ref(false);
 const navVisible = ref(true);
+const lastScrollY = ref(0);
 const activeMegaMenu = ref<string | null>(null);
 const activeAccordion = ref<string | null>(null);
 
+
 const handleScroll = () => {
   scrolled.value = window.scrollY > 10;
+
+  if (props.hideOnScroll) {
+    if (window.scrollY > lastScrollY.value && window.scrollY > 80) {
+      // Scrolling down
+      navVisible.value = false;
+    } else {
+      // Scrolling up
+      navVisible.value = true;
+    }
+
+    lastScrollY.value = window.scrollY;
+    return;
+  }
+
+  // Original behavior for all other pages
   const footer = document.querySelector("footer");
   if (footer) {
     const footerTop = footer.getBoundingClientRect().top;
@@ -851,7 +868,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-});
+  hideOnScroll: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 const closeMegaMenu = () => {
   activeMegaMenu.value = null;

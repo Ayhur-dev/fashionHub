@@ -1,6 +1,6 @@
 <template>
   <div style="background-color: var(--bg); min-height: 100vh">
-    <Navbar :transparent="true" />
+    <Navbar :transparent="true" :hideOnScroll="true" />
 
     <!-- ===== DESKTOP LAYOUT ===== -->
     <div class="hidden lg:flex" style="padding-top: 82px">
@@ -454,7 +454,7 @@
 
       <!-- Product name + wishlist -->
       <div
-        class="flex items-center justify-between !px-4 !py-7"
+        class="flex items-center justify-between px-4! py-7!"
         :style="{ borderBottom: '1px solid var(--border)' }"
       >
         <p class="text-md font-book" :style="{ color: 'var(--text-primary)' }">
@@ -508,7 +508,7 @@
 
           <a
             href="#"
-            class="text-xs font-lighter transition-opacity hover:opacity-60"
+            class="text-xs font-lighter transition-opacity"
             :style="{
               color: 'var(--text-primary)',
               textDecoration: 'underline',
@@ -576,22 +576,22 @@
               - {{ detail }}
             </li>
           </ul>
-          <p class="text-sm mt-4" :style="{ color: 'var(--text-primary)' }">
+          <p class="text-sm mt-4!" :style="{ color: 'var(--text-primary)' }">
             {{ product.material }}
           </p>
-          <p class="text-sm mt-1" :style="{ color: 'var(--text-primary)' }">
+          <p class="text-sm mt-1!" :style="{ color: 'var(--text-primary)' }">
             {{ product.madeIn }}
           </p>
-          <p class="text-sm mt-1" :style="{ color: 'var(--text-secondary)' }">
+          <p class="text-sm mt-1!" :style="{ color: 'var(--text-secondary)' }">
             {{ product.ref }}
           </p>
         </div>
       </div>
 
       <!-- Complete the look mobile -->
-      <div class="pb-6" :style="{ borderTop: '1px solid var(--border)' }">
+      <div class="pb-6!" :style="{ borderTop: '1px solid var(--border)' }">
         <p
-          class="text-sm cursor-pointer transition-opacity hover:opacity-60 px-4 py-4"
+          class="text-sm cursor-pointer transition-opacity hover:opacity-60 px-4! py-4!"
           :style="{
             color: 'var(--text-primary)',
             textDecoration: 'underline',
