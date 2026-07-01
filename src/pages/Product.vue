@@ -281,7 +281,7 @@
             ></span>
           </span>
         </p>
-        <div class="grid grid-cols-4">
+        <div class="grid gap-3 px-2! grid-cols-4">
           <div
             v-for="item in product.completeLook"
             :key="item.name"
@@ -330,13 +330,13 @@
               </button>
             </div>
 
-            <div class="flex items-center justify-between px-2 py-3">
+            <div class="flex items-center justify-between px-4! py-3!">
               <div>
-                <p class="text-xs" :style="{ color: 'var(--text-primary)' }">
+                <p class="text-sm" :style="{ color: 'var(--text-primary)' }">
                   {{ item.name }}
                 </p>
                 <p
-                  class="text-xs mt-0.5"
+                  class="text-sm mt-0.5"
                   :style="{ color: 'var(--text-secondary)' }"
                 >
                   {{ item.price }} USD
@@ -349,61 +349,73 @@
       </div>
 
       <!-- Breadcrumb desktop -->
-      <div
-        class="flex items-center gap-2 flex-wrap px-8 py-4"
-        :style="{ borderTop: '1px solid var(--border)' }"
-      >
+      <div class="flex items-center gap-2 text-sm py-8! px-8!">
         <a
           href="/"
-          class="text-xs transition-opacity hover:opacity-60"
+          class="relative group"
           :style="{ color: 'var(--text-primary)' }"
-          >Homepage</a
         >
-        <span class="text-xs" :style="{ color: 'var(--text-secondary)' }"
-          >—</span
-        >
+          Home
+          <span
+            class="absolute left-0 -bottom-0.5 h-px w-0 group-hover:w-full transition-all duration-300"
+            :style="{ backgroundColor: 'var(--text-primary)' }"
+          ></span>
+        </a>
+
+        <span :style="{ color: 'var(--text-secondary)' }">—</span>
+
         <a
-          href="/bags"
-          class="text-xs transition-opacity hover:opacity-60"
+          href="/women"
+          class="relative group"
           :style="{ color: 'var(--text-primary)' }"
-          >Bags</a
         >
-        <span class="text-xs" :style="{ color: 'var(--text-secondary)' }"
-          >—</span
-        >
+          Women
+          <span
+            class="absolute left-0 -bottom-0.5 h-px w-0 group-hover:w-full transition-all duration-300"
+            :style="{ backgroundColor: 'var(--text-primary)' }"
+          ></span>
+        </a>
+
+        <span :style="{ color: 'var(--text-secondary)' }">—</span>
+
         <a
-          href="#"
-          class="text-xs transition-opacity hover:opacity-60"
+          href="/handbags"
+          class="relative group"
           :style="{ color: 'var(--text-primary)' }"
-          >View all</a
         >
+          Handbags
+          <span
+            class="absolute left-0 -bottom-0.5 h-px w-0 group-hover:w-full transition-all duration-300"
+            :style="{ backgroundColor: 'var(--text-primary)' }"
+          ></span>
+        </a>
       </div>
 
       <!-- View more desktop -->
-      <div class="px-8 pb-4">
+      <div class="px-8! pb-4!">
         <a
           href="#"
-          class="text-xs transition-opacity hover:opacity-60"
-          :style="{
-            color: 'var(--text-primary)',
-            textDecoration: 'underline',
-            textUnderlineOffset: '3px',
-          }"
+          class="text-sm relative group transition-opacity"
+          :style="{ color: 'var(--text-primary)' }"
         >
           View more
+          <span
+            class="absolute left-0 -bottom-0.5 h-px w-0 group-hover:w-full transition-all duration-300 ease-in-out"
+            :style="{ backgroundColor: 'var(--text-primary)' }"
+          ></span>
         </a>
       </div>
 
       <!-- Category tags desktop -->
       <div
-        class="flex gap-4 overflow-x-auto px-8 pb-6"
+        class="flex gap-4 overflow-x-auto px-8! py-6!"
         style="scrollbar-width: none"
       >
         <a
           v-for="tag in product.tags"
           :key="tag"
           href="#"
-          class="text-xs whitespace-nowrap transition-opacity hover:opacity-60 shrink-0"
+          class="text-md whitespace-nowrap transition-opacity hover:opacity-60 shrink-0"
           :style="{ color: 'var(--text-secondary)' }"
         >
           {{ tag }}
@@ -591,7 +603,7 @@
       <!-- Complete the look mobile -->
       <div class="pb-6!" :style="{ borderTop: '1px solid var(--border)' }">
         <p
-          class="text-sm cursor-pointer transition-opacity hover:opacity-60 px-4! py-4!"
+          class="text-sm cursor-pointer px-4! py-4!"
           :style="{
             color: 'var(--text-primary)',
             textDecoration: 'underline',
@@ -600,11 +612,15 @@
         >
           Complete the look
         </p>
-        <div class="grid grid-cols-2">
+        <div
+          class="flex gap-3 overflow-x-auto px-4 pb-2"
+          style="scrollbar-width: none; -ms-overflow-style: none"
+        >
           <div
             v-for="item in product.completeLook"
             :key="item.name"
-            class="cursor-pointer"
+            class="cursor-pointer shrink-0"
+            style="width: calc((100% - 0.75rem) / 2)"
           >
             <div
               class="overflow-hidden"
@@ -616,7 +632,7 @@
                 class="w-full h-full object-cover"
               />
             </div>
-            <div class="flex items-center justify-between px-2 py-2">
+            <div class="flex items-center justify-between px-2! py-2!">
               <div>
                 <p class="text-xs" :style="{ color: 'var(--text-primary)' }">
                   {{ item.name }}
@@ -636,12 +652,12 @@
 
       <!-- Breadcrumb mobile -->
       <div
-        class="px-4 py-4 flex items-center gap-2 flex-wrap"
+        class="px-4! py-7! flex items-center gap-2 flex-wrap"
         :style="{ borderTop: '1px solid var(--border)' }"
       >
         <a
           href="/"
-          class="text-xs transition-opacity hover:opacity-60"
+          class="text-sm"
           :style="{ color: 'var(--text-primary)' }"
           >Homepage</a
         >
@@ -650,7 +666,7 @@
         >
         <a
           href="/bags"
-          class="text-xs transition-opacity hover:opacity-60"
+          class="text-sm"
           :style="{ color: 'var(--text-primary)' }"
           >Bags</a
         >
@@ -659,21 +675,19 @@
         >
         <a
           href="#"
-          class="text-xs transition-opacity hover:opacity-60"
+          class="text-sm"
           :style="{ color: 'var(--text-primary)' }"
           >View all</a
         >
       </div>
 
       <!-- View more mobile -->
-      <div class="px-4 pb-4">
+      <div class="px-4! pb-4! pt-8!">
         <a
           href="#"
-          class="text-xs transition-opacity hover:opacity-60"
+          class="text-sm"
           :style="{
             color: 'var(--text-primary)',
-            textDecoration: 'underline',
-            textUnderlineOffset: '3px',
           }"
         >
           View more
@@ -682,14 +696,14 @@
 
       <!-- Category tags mobile -->
       <div
-        class="flex gap-4 overflow-x-auto px-4 pb-6"
+        class="flex gap-8 overflow-x-auto px-4! pt-2!"
         style="scrollbar-width: none"
       >
         <a
           v-for="tag in product.tags"
           :key="tag"
           href="#"
-          class="text-xs whitespace-nowrap transition-opacity hover:opacity-60 shrink-0"
+          class="text-sm whitespace-nowrap shrink-0"
           :style="{ color: 'var(--text-secondary)' }"
         >
           {{ tag }}

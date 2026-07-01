@@ -1,9 +1,12 @@
 <template>
   <footer
-    style="background-color: var(--bg); border-top: 1px solid var(--border)"
+    style="
+      background-color: var(--bg);
+      border-top: 1px solid var(--border-secondary);
+    "
   >
     <!-- Section 1: Info Strip -->
-    <div style="border-bottom: 1px solid var(--border)">
+    <div style="border-bottom: 1px solid var(--border-secondary)">
       <!-- Mobile: Auto Carousel -->
       <div
         class="md:hidden relative overflow-hidden"
@@ -19,7 +22,7 @@
             class="w-full shrink-0 text-center"
           >
             <p
-              class="text-lg font-medium !mb-4"
+              class="text-lg font-medium mb-4!"
               style="color: var(--text-primary)"
             >
               {{ item.title }}
@@ -39,34 +42,27 @@
       <div class="hidden md:grid md:grid-cols-3 gap-0">
         <div class="text-center" style="padding: 5rem 2rem">
           <p
-            class="text-sm font-medium mb-6"
+            class="text-lg font-medium mb-6"
             style="color: var(--text-primary)"
           >
             Book an appointment in store
           </p>
           <p
-            class="text-xs leading-relaxed"
+            class="text-md leading-relaxed"
             style="color: var(--text-secondary)"
           >
             Lagos, Toronto, Paris, London, New York, Los Angeles ...
           </p>
         </div>
-        <div
-          class="text-center"
-          style="
-            padding: 5rem 2rem;
-            border-left: 1px solid var(--border);
-            border-right: 1px solid var(--border);
-          "
-        >
+        <div class="text-center" style="padding: 5rem 2rem">
           <p
-            class="text-sm font-medium mb-6"
+            class="text-lg font-medium mb-6"
             style="color: var(--text-primary)"
           >
             Free shipping and returns
           </p>
           <p
-            class="text-xs leading-relaxed"
+            class="text-md leading-relaxed"
             style="color: var(--text-secondary)"
           >
             Free delivery and <br />
@@ -75,13 +71,13 @@
         </div>
         <div class="text-center" style="padding: 5rem 2rem">
           <p
-            class="text-sm font-medium mb-6"
+            class="text-lg font-medium mb-6"
             style="color: var(--text-primary)"
           >
             Secure payment
           </p>
           <p
-            class="text-xs leading-relaxed"
+            class="text-md leading-relaxed"
             style="color: var(--text-secondary)"
           >
             Visa, Mastercard, Paypal, Apple pay, <br />
@@ -94,19 +90,21 @@
     <!-- Section 2: Newsletter + Contact -->
     <div
       class="grid grid-cols-1 md:grid-cols-2"
-      style="border-bottom: 1px solid var(--border)"
+      style="border-bottom: 1px solid var(--border-secondary)"
     >
       <!-- Newsletter -->
       <div
         class="flex flex-col gap-5"
-        style="padding: 2.5rem 1.5rem; border-bottom: 1px solid var(--border)"
-        :style="{ borderRight: 'none' }"
+        style="
+          padding: 2.5rem 1.5rem;
+          border-right: 1px solid var(--border-secondary);
+        "
       >
         <div
           class="flex items-center gap-3 cursor-pointer"
           @click="newsletterOpen = !newsletterOpen"
         >
-          <p class="text-base font-medium" style="color: var(--text-primary)">
+          <p class="text-lg font-book" style="color: var(--text-primary)">
             Subscribe to the newsletter
           </p>
           <ChevronDown
@@ -121,8 +119,8 @@
           />
         </div>
 
-        <p class="text-xs leading-relaxed" style="color: var(--text-secondary)">
-          Subscribe to receive all the information by email on our latest
+        <p class="text-md leading-relaxed" style="color: var(--text-secondary)">
+          Subscribe to receive all the information by email on our latest <br />
           collections, our products, our fashion shows and our projects.
         </p>
 
@@ -224,11 +222,11 @@
 
         <button
           @click="newsletterOpen ? handleSubmit() : (newsletterOpen = true)"
-          class="w-full !py-4 text-xs font-medium tracking-widest uppercase transition-all duration-300 hover:opacity-80"
+          class="w-full py-4! text-xs font-medium tracking-widest uppercase duration-300 "
           :style="
             newsletterOpen
               ? 'background-color: var(--bg); color: var(--text-primary); border: 1px solid var(--text-primary);'
-              : 'background-color: var(--text-primary); color: var(--bg); border: 1px solid var(--text-primary);'
+              : 'background-color: var(--button-bg); color: var(--bg); border: 1px solid var(--text-primary);'
           "
         >
           Register - Test
@@ -240,7 +238,7 @@
         <p class="text-base font-medium" style="color: var(--text-primary)">
           Need help? Contact us
         </p>
-        <p class="text-xs leading-relaxed" style="color: var(--text-secondary)">
+        <p class="text-md leading-relaxed" style="color: var(--text-secondary)">
           Monday to Friday from 10:00 am to 9:00pm CET. <br />
           Saturdays from 10:00am to 6:00 CET.
         </p>
@@ -289,15 +287,15 @@
     <!-- Section 3: Legal / FAQ / Company / Follow -->
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-0"
-      style="border-bottom: 1px solid var(--border)"
+      style="border-bottom: 1px solid var(--border-secondary)"
     >
       <!-- Legal -->
       <div
         class="flex flex-col footer-section-pad"
-        style="padding: 2rem 1.5rem; border-bottom: 1px solid var(--border)"
+        style="padding: 2rem 1.5rem"
       >
         <div
-          class="flex items-center !mb-3 gap-2 cursor-pointer"
+          class="flex items-center mb-3! gap-2 cursor-pointer"
           @click="legalOpen = !legalOpen"
         >
           <p class="text-sm" style="color: var(--text-primary)">Legal</p>
@@ -313,7 +311,7 @@
           />
         </div>
         <div
-          class="flex flex-col !mb-5 gap-3 overflow-hidden transition-all duration-500"
+          class="flex flex-col mb-5! gap-3 overflow-hidden transition-all duration-500"
           :style="
             legalOpen
               ? 'max-height: 300px; opacity: 1'
@@ -334,10 +332,10 @@
       <!-- FAQ -->
       <div
         class="flex flex-col footer-section-pad"
-        style="padding: 2rem 1.5rem; border-bottom: 1px solid var(--border)"
+        style="padding: 2rem 1.5rem"
       >
         <div
-          class="flex items-center !mb-5 gap-2 cursor-pointer"
+          class="flex items-center mb-5! gap-2 cursor-pointer"
           @click="faqOpen = !faqOpen"
         >
           <p class="text-sm" style="color: var(--text-primary)">FAQ</p>
@@ -372,10 +370,10 @@
       <!-- Company -->
       <div
         class="flex flex-col footer-section-pad"
-        style="padding: 2rem 1.5rem; border-bottom: 1px solid var(--border)"
+        style="padding: 2rem 1.5rem"
       >
         <div
-          class="flex items-center !mb-5 gap-2 cursor-pointer"
+          class="flex items-center mb-5! gap-2 cursor-pointer"
           @click="companyOpen = !companyOpen"
         >
           <p class="text-sm" style="color: var(--text-primary)">Company</p>

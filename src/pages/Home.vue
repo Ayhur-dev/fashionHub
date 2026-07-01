@@ -11,9 +11,8 @@
         { src: '/banner2-right.avif', label: 'Summer Accessories for Men' },
       ]"
     />
-     <ProductGrid :products="secondGridProducts" />
+    <ProductGrid :products="secondGridProducts" />
     <Footer />
-    
   </main>
 </template>
 
@@ -24,7 +23,6 @@ import Hero from "../components/Hero.vue";
 import ProductGrid from "../components/ProductGrid.vue";
 import SplitBanner from "../components/SplitBanner.vue";
 import Footer from "../components/Footer.vue";
-
 
 interface Product {
   id: number;
@@ -175,7 +173,7 @@ const secondGridProducts = ref<Product[]>([
     price: "3500",
     images: ["/product-10a.webp", "/product-10b.png", "/product-10c.png"],
     currentImage: 0,
-    colors: [],
+    colors: ["#000000"],
     isNew: true,
     isPersonalizable: false,
     hasVariants: false,
