@@ -195,7 +195,7 @@ const secondGridProducts = ref<Product[]>([
     price: "100",
     images: ["/product-12a.png", "/product-12b.png", "/product-12c.jfif"],
     currentImage: 0,
-    colors: ["#fff"],
+    colors: ["#7DD296"],
     isNew: false,
     isPersonalizable: true,
     hasVariants: false,

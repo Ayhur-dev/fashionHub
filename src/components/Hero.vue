@@ -1,12 +1,12 @@
 <template>
- <section class="w-full flex h-[100vh] md:h-[120vh]">
+ <section class="w-full flex h-screen md:h-[120vh]">
     <!-- Left Image -->
     <div
       ref="leftRef"
       class="relative w-full md:w-1/2 h-full overflow-hidden cursor-pointer group"
     >
       <img
-        src="/hero-left.avif"
+        src="/hero-left.webp"
         alt="New In Women"
         class="object-cover w-full h-full object-[50%_0]"
       />
@@ -32,9 +32,9 @@
       class="relative hidden md:block w-1/2 h-full overflow-hidden cursor-pointer group"
     >
       <img
-        src="/hero-right.avif"
+        src="/hero-right.webp"
         alt="New In Bags"
-        class="w-full h-full object-cover object-top"
+        class="w-full h-full object-cover object-bottom"
       />
       <div
         class="absolute bottom-8 left-6"

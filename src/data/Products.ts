@@ -40,10 +40,22 @@ export const products: Product[] = [
     madeIn: "Made in Portugal",
     ref: "Ref. DRS001",
     completeLook: [
-      { name: "The Valerie bag", price: "890", image: "/product-2a.png" },
-      { name: "The Hippocampe scarf", price: "340", image: "/product-3a.png" },
-      { name: "The sneakers", price: "420", image: "/product-4a.jpeg" },
-      { name: "The felt jacket", price: "890", image: "/product-6a.jpeg" },
+      {
+        name: "The Aurelia Pearl Bangle",
+        price: "1900",
+        image: "/product-13a.png",
+      },
+      {
+        name: "The Nerida Starfish Necklace",
+        price: "2000",
+        image: "/product-13b.png",
+      },
+      {
+        name: "Valentio Garavani Signature 80 Slingback Leather Heels",
+        price: "420",
+        image: "/product-13c.png",
+      },
+      { name: "Silver Horizon Mesh", price: "700", image: "/product-13d.png" },
     ],
     tags: ["Ready-to-wear", "Dresses", "New In", "Women"],
   },
@@ -370,6 +382,34 @@ export const products: Product[] = [
     otherSizes: [
       { name: "Monarch Silk Utility Shirt", image: "/product-11a.webp" },
       { name: "Monarch Silk Utility Shirt", image: "/product-11bb.png" },
+    ],
+    details: [
+      "Summer shirt dress",
+      "Twisted front detail",
+      "Lightweight fabric",
+    ],
+    material: "100% Linen",
+    madeIn: "Made in Portugal",
+    ref: "Ref. DRS008",
+    completeLook: [
+      { name: "The Valerie bag", price: "890", image: "/product-2a.png" },
+      { name: "The Hippocampe scarf", price: "340", image: "/product-3a.png" },
+      { name: "The sneakers", price: "420", image: "/product-4a.jpeg" },
+      { name: "The felt jacket", price: "890", image: "/product-6a.jpeg" },
+    ],
+    tags: ["Ready-to-wear", "Dresses", "Summer", "Women"],
+  },
+  {
+    id: 12,
+    name: "Nigeria 2026 Away Jersey - Men's",
+    price: "100",
+    shortDescription: "A fluid, twisted silhouette.",
+    shortDescription2: "Summer edition.",
+    colors: [{ name: "Black", hex: "#7DD296" }],
+    images: ["/product-12a.png", "/product-12b.png", "/product-12c.jfif"],
+    otherSizes: [
+      { name: "Nigeria 2026 Away Jersey - Men's", image: "/product-12a.png" },
+      { name: "Nigeria 2026 Away Jersey - Men's", image: "/product-12c.jfif" },
     ],
     details: [
       "Summer shirt dress",
