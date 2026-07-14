@@ -650,37 +650,6 @@
         </div>
       </div>
 
-      <!-- Breadcrumb mobile -->
-      <div
-        class="px-4! py-7! flex items-center gap-2 flex-wrap"
-        :style="{ borderTop: '1px solid var(--border)' }"
-      >
-        <a
-          href="/"
-          class="text-sm"
-          :style="{ color: 'var(--text-primary)' }"
-          >Homepage</a
-        >
-        <span class="text-xs" :style="{ color: 'var(--text-secondary)' }"
-          >—</span
-        >
-        <a
-          href="/bags"
-          class="text-sm"
-          :style="{ color: 'var(--text-primary)' }"
-          >Bags</a
-        >
-        <span class="text-xs" :style="{ color: 'var(--text-secondary)' }"
-          >—</span
-        >
-        <a
-          href="#"
-          class="text-sm"
-          :style="{ color: 'var(--text-primary)' }"
-          >View all</a
-        >
-      </div>
-
       <!-- View more mobile -->
       <div class="px-4! pb-4! pt-8!">
         <a
@@ -796,4 +765,10 @@ const touchEnd = (e: TouchEvent) => {
 const selectSize = (size: { name: string; image: string }) => {
   selectedSize.value = size.name;
 };
+
+const breadcrumbs = computed(() => [
+  { label: "Home", to: "/" },
+  ...product.value.breadcrumb,
+  { label: product.value.name, to: null },
+]);
 </script>

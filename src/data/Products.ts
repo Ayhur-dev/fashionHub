@@ -13,6 +13,10 @@ export interface Product {
   ref: string;
   completeLook: { name: string; price: string; image: string }[];
   tags: string[];
+  breadcrumb: {
+    label: string;
+    to: string;
+  }[];
 }
 
 export const products: Product[] = [
@@ -20,6 +24,10 @@ export const products: Product[] = [
     id: 1,
     name: "The Twisted shirt dress",
     price: "650",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "The Twisted shirt dress", to: "/products/1" },
+    ],
     shortDescription: "A fluid, twisted silhouette.",
     shortDescription2: "Long sleeve shirt dress.",
     colors: [{ name: "Beige", hex: "#b6af9d" }],
@@ -63,6 +71,10 @@ export const products: Product[] = [
     id: 2,
     name: "The Valerie bag",
     price: "890",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "The Valerie bag", to: "/products/2" },
+    ],
     shortDescription: "The iconic Jacquemus bag.",
     shortDescription2: "Structured leather handbag.",
     colors: [
@@ -115,6 +127,10 @@ export const products: Product[] = [
     id: 3,
     name: "The Hippocampe large scarf",
     price: "340",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "Scarves", to: "/products/scarves" },
+    ],
     shortDescription: "Silk printed large scarf.",
     shortDescription2: "Lightweight and versatile.",
     colors: [{ name: "Camel", hex: "#C3A68A" }],
@@ -159,6 +175,10 @@ export const products: Product[] = [
     id: 4,
     name: "Cole Haan Men's sneakers",
     price: "499",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "Sneakers", to: "/products/sneakers" },
+    ],
     shortDescription: "Premium leather sneakers.",
     shortDescription2: "Comfortable everyday wear.",
     colors: [
@@ -206,6 +226,10 @@ export const products: Product[] = [
     id: 5,
     name: "Aurelia Woven Pochette",
     price: "650",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "Handbags", to: "/products/handbags" },
+    ],
     shortDescription: "A compact woven clutch for day and evening.",
     shortDescription2: "Elegant woven design with a minimalist finish.",
     colors: [
@@ -242,6 +266,10 @@ export const products: Product[] = [
     id: 6,
     name: "Wool blend felt jacket",
     price: "890",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "Jackets", to: "/products/jackets" },
+    ],
     shortDescription: "Structured wool blend jacket.",
     shortDescription2: "Oversized silhouette.",
     colors: [
@@ -291,6 +319,10 @@ export const products: Product[] = [
     id: 7,
     name: "The Hippocampe large scarf",
     price: "340",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "Scarves", to: "/products/scarves" },
+    ],
     shortDescription: "Crafted from premium black leather.",
     shortDescription2:
       "Elegant silhouette designed for everyday sophistication.",
@@ -335,6 +367,10 @@ export const products: Product[] = [
     id: 8,
     name: "The Tailored Saddle Bag",
     price: "1,500",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "Handbags", to: "/products/handbags" },
+    ],
     shortDescription: "Structured saddle bag with timeless elegance.",
     shortDescription2: "Made from luxurious full-grain leather.",
     colors: [
@@ -362,10 +398,18 @@ export const products: Product[] = [
     madeIn: "Made in Portugal",
     ref: "Ref. DRS008",
     completeLook: [
-      { name: "The Valerie bag", price: "890", image: "/product-2a.png" },
-      { name: "The Hippocampe scarf", price: "340", image: "/product-3a.png" },
-      { name: "The sneakers", price: "420", image: "/product-4a.jpeg" },
-      { name: "The felt jacket", price: "890", image: "/product-6a.jpeg" },
+      { name: "Golden Hoops", price: "700", image: "/product-20a.jpeg" },
+      {
+        name: "Le Foulard Batteau Corde Scarve",
+        price: "1600",
+        image: "/product-20b.jpeg",
+      },
+      {
+        name: "Verdure Luxe Silk Wrap",
+        price: "2000",
+        image: "/product-20c.jpeg",
+      },
+      { name: "Isla Dress", price: "900", image: "/product-20d.jpeg" },
     ],
     tags: ["Ready-to-wear", "Dresses", "Summer", "Women"],
   },
@@ -373,8 +417,12 @@ export const products: Product[] = [
     id: 9,
     name: "Tom Ford sunglasses",
     price: "2700",
-    shortDescription: "A fluid, twisted silhouette.",
-    shortDescription2: "Summer edition.",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "Sunglasses", to: "/products/sunglasses" },
+    ],
+    shortDescription: "UV400 protective lenses.",
+    shortDescription2: "",
     colors: [
       { name: "Pink", hex: "#d4a5a5" },
       { name: "Black", hex: "#2c2c2c" },
@@ -390,10 +438,18 @@ export const products: Product[] = [
     madeIn: "Made in Portugal",
     ref: "Ref. DRS008",
     completeLook: [
-      { name: "The Valerie bag", price: "890", image: "/product-2a.png" },
-      { name: "The Hippocampe scarf", price: "340", image: "/product-3a.png" },
-      { name: "The sneakers", price: "420", image: "/product-4a.jpeg" },
-      { name: "The felt jacket", price: "890", image: "/product-6a.jpeg" },
+      { name: "TNike Flyfree Shield", price: "300", image: "/product-21a.png" },
+      {
+        name: "Gucci 54mm Butterfly Sunglasses",
+        price: "240",
+        image: "/product-21b.jpeg",
+      },
+      { name: "Summer Stripe Tote", price: "800", image: "/product-21c.jpeg" },
+      {
+        name: "Christian Louboutin Rantulow Full-Grain Leather Sneakers",
+        price: "890",
+        image: "/product-21d.jpeg",
+      },
     ],
     tags: ["Ready-to-wear", "Dresses", "Summer", "Women"],
   },
@@ -401,8 +457,12 @@ export const products: Product[] = [
     id: 10,
     name: "The Zenith Noir Shades",
     price: "3500",
-    shortDescription: "A fluid, twisted silhouette.",
-    shortDescription2: "Summer edition.",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "Sunglasses", to: "/products/sunglasses" },
+    ],
+    shortDescription: "Comfort-fit frame.",
+    shortDescription2: "",
     colors: [{ name: "Black", hex: "#2c2c2c" }],
     images: ["/product-10a.webp", "/product-10b.png", "/product-10c.png"],
     otherSizes: [
@@ -417,10 +477,26 @@ export const products: Product[] = [
     madeIn: "Made in Portugal",
     ref: "Ref. DRS008",
     completeLook: [
-      { name: "The Valerie bag", price: "890", image: "/product-2a.png" },
-      { name: "The Hippocampe scarf", price: "340", image: "/product-3a.png" },
-      { name: "The sneakers", price: "420", image: "/product-4a.jpeg" },
-      { name: "The felt jacket", price: "890", image: "/product-6a.jpeg" },
+      {
+        name: "Print Silk Habotai Neckerchief",
+        price: "1000",
+        image: "/product-22a.jpeg",
+      },
+      {
+        name: "Summer Stripe Tote",
+        price: "800",
+        image: "/product-21c_red.jpeg",
+      },
+      {
+        name: "Christian Louboutin Rantulow Full-Grain Leather Sneakers",
+        price: "890",
+        image: "/product-21d_red.jpeg",
+      },
+      {
+        name: "Gucci 54mm Butterfly Sunglasses",
+        price: "240",
+        image: "/product-21b_red.jpeg",
+      },
     ],
     tags: ["Ready-to-wear", "Dresses", "Summer", "Women"],
   },
@@ -428,8 +504,12 @@ export const products: Product[] = [
     id: 11,
     name: "Monarch Silk Utility Shirt",
     price: "3500",
-    shortDescription: "A fluid, twisted silhouette.",
-    shortDescription2: "Summer edition.",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "Shirts", to: "/products/shirts" },
+    ],
+    shortDescription: "Button-front closure.",
+    shortDescription2: "",
     colors: [{ name: "Black", hex: "#000000" }],
     images: ["/product-11a.webp", "/product-11bb.png"],
     otherSizes: [
@@ -445,10 +525,14 @@ export const products: Product[] = [
     madeIn: "Made in Portugal",
     ref: "Ref. DRS008",
     completeLook: [
-      { name: "The Valerie bag", price: "890", image: "/product-2a.png" },
-      { name: "The Hippocampe scarf", price: "340", image: "/product-3a.png" },
-      { name: "The sneakers", price: "420", image: "/product-4a.jpeg" },
-      { name: "The felt jacket", price: "890", image: "/product-6a.jpeg" },
+      {
+        name: "Navygraf Marine Nationale 400th Anniversary Edition Femme",
+        price: "7000",
+        image: "/product-22b.jpeg",
+      },
+      { name: "Fuchsia Knot Pumps", price: "1200", image: "/product-22c.jpeg" },
+      { name: "Lemon Luxe Heels", price: "1000", image: "/product-22d.jpeg" },
+      { name: "Radiance Gold Cuff", price: "400", image: "/product-22e.jpeg" },
     ],
     tags: ["Ready-to-wear", "Dresses", "Summer", "Women"],
   },
@@ -456,8 +540,12 @@ export const products: Product[] = [
     id: 12,
     name: "Nigeria 2026 Away Jersey - Men's",
     price: "100",
-    shortDescription: "A fluid, twisted silhouette.",
-    shortDescription2: "Summer edition.",
+    breadcrumb: [
+      { label: "Products", to: "/products" },
+      { label: "Jerseys", to: "/products/jerseys" },
+    ],
+    shortDescription: "Lightweight jersey with an athletic fit.",
+    shortDescription2: "",
     colors: [{ name: "Black", hex: "#7DD296" }],
     images: ["/product-12a.png", "/product-12b.png", "/product-12c.jfif"],
     otherSizes: [
@@ -473,10 +561,26 @@ export const products: Product[] = [
     madeIn: "Made in Portugal",
     ref: "Ref. DRS008",
     completeLook: [
-      { name: "The Valerie bag", price: "890", image: "/product-2a.png" },
-      { name: "The Hippocampe scarf", price: "340", image: "/product-3a.png" },
-      { name: "The sneakers", price: "420", image: "/product-4a.jpeg" },
-      { name: "The felt jacket", price: "890", image: "/product-6a.jpeg" },
+      {
+        name: "Men's Nike Dri-FIT Soccer Short-Sleeve Jersey",
+        price: "100",
+        image: "/product-23a.jpeg",
+      },
+      {
+        name: "2020/21 NIGERIA Vintage Nike Home Football Shirt (M) BNWT",
+        price: "100",
+        image: "/product-23b.jpeg",
+      },
+      {
+        name: "Drawstring Regular-Fit Cotton And Cashmere Trousers",
+        price: "50",
+        image: "/product-23c.jpeg",
+      },
+      {
+        name: "MEN'S SILK SCARF RED - CHARLES",
+        price: "1500",
+        image: "/product-23d.jpeg",
+      },
     ],
     tags: ["Ready-to-wear", "Dresses", "Summer", "Women"],
   },
