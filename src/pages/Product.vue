@@ -348,47 +348,28 @@
         </div>
       </div>
 
-      <!-- Breadcrumb desktop -->
       <div class="flex items-center gap-2 text-sm py-8! px-8!">
-        <a
-          href="/"
-          class="relative group"
-          :style="{ color: 'var(--text-primary)' }"
-        >
-          Home
+        <template v-for="(crumb, index) in breadcrumbs" :key="index">
+          <RouterLink
+            v-if="crumb.to"
+            :to="crumb.to"
+            class="relative group"
+            :style="{ color: 'var(--text-primary)' }"
+          >
+            {{ crumb.label }}
+          </RouterLink>
+
+          <span v-else :style="{ color: 'var(--text-primary)' }">
+            {{ crumb.label }}
+          </span>
+
           <span
-            class="absolute left-0 -bottom-0.5 h-px w-0 group-hover:w-full transition-all duration-300"
-            :style="{ backgroundColor: 'var(--text-primary)' }"
-          ></span>
-        </a>
-
-        <span :style="{ color: 'var(--text-secondary)' }">—</span>
-
-        <a
-          href="/women"
-          class="relative group"
-          :style="{ color: 'var(--text-primary)' }"
-        >
-          Women
-          <span
-            class="absolute left-0 -bottom-0.5 h-px w-0 group-hover:w-full transition-all duration-300"
-            :style="{ backgroundColor: 'var(--text-primary)' }"
-          ></span>
-        </a>
-
-        <span :style="{ color: 'var(--text-secondary)' }">—</span>
-
-        <a
-          href="/handbags"
-          class="relative group"
-          :style="{ color: 'var(--text-primary)' }"
-        >
-          Handbags
-          <span
-            class="absolute left-0 -bottom-0.5 h-px w-0 group-hover:w-full transition-all duration-300"
-            :style="{ backgroundColor: 'var(--text-primary)' }"
-          ></span>
-        </a>
+            v-if="index < breadcrumbs.length - 1"
+            :style="{ color: 'var(--text-secondary)' }"
+          >
+            —
+          </span>
+        </template>
       </div>
 
       <!-- View more desktop -->
@@ -648,6 +629,38 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div
+        class="px-4! py-7! flex items-center gap-2 flex-wrap"
+        :style="{ borderTop: '1px solid var(--border)' }"
+      >
+        <template v-for="(crumb, index) in breadcrumbs" :key="index">
+          <RouterLink
+            v-if="crumb.to"
+            :to="crumb.to"
+            class="text-sm"
+            :style="{ color: 'var(--text-primary)' }"
+          >
+            {{ crumb.label }}
+          </RouterLink>
+
+          <span
+            v-else
+            class="text-sm"
+            :style="{ color: 'var(--text-primary)' }"
+          >
+            {{ crumb.label }}
+          </span>
+
+          <span
+            v-if="index < breadcrumbs.length - 1"
+            class="text-xs"
+            :style="{ color: 'var(--text-secondary)' }"
+          >
+            —
+          </span>
+        </template>
       </div>
 
       <!-- View more mobile -->

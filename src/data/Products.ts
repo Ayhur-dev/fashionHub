@@ -24,10 +24,7 @@ export const products: Product[] = [
     id: 1,
     name: "The Twisted shirt dress",
     price: "650",
-    breadcrumb: [
-      { label: "Products", to: "/products" },
-      { label: "The Twisted shirt dress", to: "/products/1" },
-    ],
+    breadcrumb: [{ label: "Products", to: "/products" }],
     shortDescription: "A fluid, twisted silhouette.",
     shortDescription2: "Long sleeve shirt dress.",
     colors: [{ name: "Beige", hex: "#b6af9d" }],
@@ -127,10 +124,7 @@ export const products: Product[] = [
     id: 3,
     name: "The Hippocampe large scarf",
     price: "340",
-    breadcrumb: [
-      { label: "Products", to: "/products" },
-      { label: "Scarves", to: "/products/scarves" },
-    ],
+    breadcrumb: [{ label: "Products", to: "/products" }],
     shortDescription: "Silk printed large scarf.",
     shortDescription2: "Lightweight and versatile.",
     colors: [{ name: "Camel", hex: "#C3A68A" }],
@@ -175,10 +169,7 @@ export const products: Product[] = [
     id: 4,
     name: "Cole Haan Men's sneakers",
     price: "499",
-    breadcrumb: [
-      { label: "Products", to: "/products" },
-      { label: "Sneakers", to: "/products/sneakers" },
-    ],
+    breadcrumb: [{ label: "Products", to: "/products" }],
     shortDescription: "Premium leather sneakers.",
     shortDescription2: "Comfortable everyday wear.",
     colors: [
@@ -228,7 +219,7 @@ export const products: Product[] = [
     price: "650",
     breadcrumb: [
       { label: "Products", to: "/products" },
-      { label: "Handbags", to: "/products/handbags" },
+      { label: "bags", to: "/products/bags" },
     ],
     shortDescription: "A compact woven clutch for day and evening.",
     shortDescription2: "Elegant woven design with a minimalist finish.",
@@ -266,10 +257,7 @@ export const products: Product[] = [
     id: 6,
     name: "Wool blend felt jacket",
     price: "890",
-    breadcrumb: [
-      { label: "Products", to: "/products" },
-      { label: "Jackets", to: "/products/jackets" },
-    ],
+    breadcrumb: [{ label: "Products", to: "/products" }],
     shortDescription: "Structured wool blend jacket.",
     shortDescription2: "Oversized silhouette.",
     colors: [
@@ -319,10 +307,7 @@ export const products: Product[] = [
     id: 7,
     name: "The Hippocampe large scarf",
     price: "340",
-    breadcrumb: [
-      { label: "Products", to: "/products" },
-      { label: "Scarves", to: "/products/scarves" },
-    ],
+    breadcrumb: [{ label: "Products", to: "/products" }],
     shortDescription: "Crafted from premium black leather.",
     shortDescription2:
       "Elegant silhouette designed for everyday sophistication.",
@@ -369,7 +354,7 @@ export const products: Product[] = [
     price: "1,500",
     breadcrumb: [
       { label: "Products", to: "/products" },
-      { label: "Handbags", to: "/products/handbags" },
+      { label: "Bags", to: "/products/bags" },
     ],
     shortDescription: "Structured saddle bag with timeless elegance.",
     shortDescription2: "Made from luxurious full-grain leather.",
@@ -417,10 +402,7 @@ export const products: Product[] = [
     id: 9,
     name: "Tom Ford sunglasses",
     price: "2700",
-    breadcrumb: [
-      { label: "Products", to: "/products" },
-      { label: "Sunglasses", to: "/products/sunglasses" },
-    ],
+    breadcrumb: [{ label: "Products", to: "/products" }],
     shortDescription: "UV400 protective lenses.",
     shortDescription2: "",
     colors: [
@@ -457,10 +439,7 @@ export const products: Product[] = [
     id: 10,
     name: "The Zenith Noir Shades",
     price: "3500",
-    breadcrumb: [
-      { label: "Products", to: "/products" },
-      { label: "Sunglasses", to: "/products/sunglasses" },
-    ],
+    breadcrumb: [{ label: "Products", to: "/products" }],
     shortDescription: "Comfort-fit frame.",
     shortDescription2: "",
     colors: [{ name: "Black", hex: "#2c2c2c" }],
@@ -504,10 +483,7 @@ export const products: Product[] = [
     id: 11,
     name: "Monarch Silk Utility Shirt",
     price: "3500",
-    breadcrumb: [
-      { label: "Products", to: "/products" },
-      { label: "Shirts", to: "/products/shirts" },
-    ],
+    breadcrumb: [{ label: "Products", to: "/products" }],
     shortDescription: "Button-front closure.",
     shortDescription2: "",
     colors: [{ name: "Black", hex: "#000000" }],
@@ -540,10 +516,7 @@ export const products: Product[] = [
     id: 12,
     name: "Nigeria 2026 Away Jersey - Men's",
     price: "100",
-    breadcrumb: [
-      { label: "Products", to: "/products" },
-      { label: "Jerseys", to: "/products/jerseys" },
-    ],
+    breadcrumb: [{ label: "Products", to: "/products" }],
     shortDescription: "Lightweight jersey with an athletic fit.",
     shortDescription2: "",
     colors: [{ name: "Black", hex: "#7DD296" }],
