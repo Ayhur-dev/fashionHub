@@ -38,7 +38,7 @@
           <input
             v-model="email"
             type="email"
-            class="w-full text-sm bg-transparent outline-none pb-2!"
+            class="w-full text-base bg-transparent outline-none pb-2!"
             style="
               border-bottom: 2px solid var(--border-secondary);
               color: var(--text-primary);
