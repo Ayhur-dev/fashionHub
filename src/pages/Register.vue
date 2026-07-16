@@ -58,7 +58,7 @@
             <input
               v-model="form.email"
               type="email"
-              class="w-full text-sm bg-transparent outline-none pb-2!"
+              class="w-full text-base bg-transparent outline-none pb-2!"
               style="
                 border-bottom: 1px solid var(--text-primary);
                 color: var(--text-primary);
@@ -91,7 +91,7 @@
               <input
                 v-model="form.password"
                 :type="showPassword ? 'text' : 'password'"
-                class="w-full text-sm bg-transparent outline-none pb-2!"
+                class="w-full text-base bg-transparent outline-none pb-2!"
                 style="
                   border-bottom: 1px solid var(--text-primary);
                   color: var(--text-primary);
@@ -122,7 +122,7 @@
               <input
                 v-model="form.confirmPassword"
                 :type="showConfirmPassword ? 'text' : 'password'"
-                class="w-full text-sm bg-transparent outline-none pb-2!"
+                class="w-full text-base bg-transparent outline-none pb-2!"
                 style="
                   border-bottom: 1px solid var(--text-primary);
                   color: var(--text-primary);
@@ -199,7 +199,7 @@
               <input
                 v-model="form.firstName"
                 type="text"
-                class="w-full text-sm bg-transparent outline-none pb-2!"
+                class="w-full text-base bg-transparent outline-none pb-2!"
                 style="
                   border-bottom: 1px solid var(--text-primary);
                   color: var(--text-primary);
@@ -218,7 +218,7 @@
               <input
                 v-model="form.lastName"
                 type="text"
-                class="w-full text-sm bg-transparent outline-none pb-2!"
+                class="w-full text-base bg-transparent outline-none pb-2!"
                 style="
                   border-bottom: 1px solid var(--text-primary);
                   color: var(--text-primary);
