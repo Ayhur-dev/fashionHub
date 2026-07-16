@@ -4,7 +4,7 @@
   >
     <!-- Top Bar -->
     <div
-      class="flex items-center justify-between !px-4 !py-4"
+      class="flex items-center justify-between px-4! py-4!"
       :style="{ borderBottom: '1px solid var(--text-secondary)' }"
     >
       <button
@@ -25,7 +25,7 @@
     <!-- ===== BAGS PAGE ===== -->
     <div v-if="isBags">
       <!-- Plain category links -->
-      <div class="!mt-10">
+      <div class="mt-10!">
         <a
           v-for="item in bagCategories"
           :key="item"
@@ -42,7 +42,7 @@
 
       <!-- Product Grid horizontal scroll -->
       <div
-        class="mt-0 md:!mt-35 lg:mt-0"
+        class="mt-0 md:mt-35! lg:mt-0"
         style="
           display: flex;
           overflow-x: auto;
@@ -54,7 +54,7 @@
         <div
           v-for="product in bagProducts"
           :key="product.name"
-          class="cursor-pointer flex-shrink-0 group"
+          class="cursor-pointer shrink-0 group"
           style="width: 40vw"
           :style="{ borderRight: '1px solid var(--border)' }"
         >
@@ -78,7 +78,7 @@
     <!-- ===== WOMEN PAGE ===== -->
     <div v-else-if="isWomen">
       <!-- Categories with accordion + NEW badge -->
-      <div class="!mt-10">
+      <div class="mt-10!">
         <div
           v-for="item in womenCategories"
           :key="item.label"
@@ -132,7 +132,7 @@
       </div>
 
       <!-- Images -->
-      <div class="!mt-10 !px-4 grid grid-cols-2" style="height: 50vh; gap: 8px">
+      <div class="mt-10! px-4! grid grid-cols-2" style="height: 50vh; gap: 8px">
         <div
           v-for="image in womenImages"
           :key="image.label"
@@ -151,7 +151,7 @@
 
             <a
               href="#"
-              class="!text-white"
+              class="text-white!"
               style="font-size: 10px; text-decoration: underline"
             >
               {{ image.discover }}
@@ -163,7 +163,7 @@
 
     <!-- ===== MEN PAGE ===== -->
     <div v-else-if="isMen">
-      <div class="!mt-10">
+      <div class="mt-10!">
         <div
           v-for="item in menCategories"
           :key="item.label"
@@ -214,7 +214,7 @@
         </div>
       </div>
 
-      <div class="!mt-10 !px-4 grid grid-cols-2" style="height: 50vh; gap: 8px">
+      <div class="mt-10! px-4! grid grid-cols-2" style="height: 50vh; gap: 8px">
         <div
           v-for="image in menImages"
           :key="image.label"
@@ -246,7 +246,7 @@
     <!-- ===== GIFTS PAGE ===== -->
     <div v-else-if="isGifts">
       <!-- Plain links no accordion -->
-      <div class="!mt-10">
+      <div class="mt-10!">
         <a
           v-for="item in giftsCategories"
           :key="item"
@@ -263,7 +263,7 @@
       </div>
 
       <!-- Images with labels overlaid -->
-      <div class="!mt-10 !px-4 grid grid-cols-2" style="height: 50vh; gap: 8px">
+      <div class="mt-10! px-4! grid grid-cols-2" style="height: 50vh; gap: 8px">
         <div
           v-for="image in giftsImages"
           :key="image.label"
@@ -282,7 +282,7 @@
 
             <a
               href="#"
-              class="!text-white"
+              class="text-white!"
               style="font-size: 10px; text-decoration: underline"
             >
               {{ image.discover }}
@@ -294,7 +294,7 @@
 
     <!-- ===== EXPLORE PAGE ===== -->
     <div v-else-if="isExplore">
-      <div class="!mt-10">
+      <div class="mt-10!">
         <div
           v-for="item in exploreCategories"
           :key="item.label"
@@ -332,7 +332,7 @@
         </div>
       </div>
 
-      <div class="!mt-10 !px-4 grid grid-cols-2" style="height: 50vh; gap: 8px">
+      <div class="mt-10! px-4! grid grid-cols-2" style="height: 50vh; gap: 8px">
         <div
           v-for="image in exploreImages"
           :key="image.src"
@@ -362,7 +362,7 @@
             <a
               v-if="image.discover"
               href="#"
-              class="!text-white"
+              class="text-white!"
               style="font-size: 10px; text-decoration: underline"
             >
               {{ image.discover }}
@@ -375,7 +375,7 @@
     <!-- ===== NEW IN / WOMEN / MEN PAGE ===== -->
     <div v-else>
       <!-- Categories — untouched -->
-      <div class="!mt-10">
+      <div class="mt-10!">
         <div v-for="item in categories" :key="item.label">
           <button
             class="flex items-center justify-between w-full text-left"
@@ -412,7 +412,7 @@
       </div>
 
       <!-- Images — untouched -->
-      <div class="!mt-10 !px-4 grid grid-cols-2" style="height: 50vh; gap: 8px">
+      <div class="mt-10! px-4! grid grid-cols-2" style="height: 50vh; gap: 8px">
         <div
           v-for="image in heroImages"
           :key="image.label"

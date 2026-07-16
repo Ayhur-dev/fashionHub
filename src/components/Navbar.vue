@@ -62,12 +62,13 @@
           >
             <Search :size="18" />
           </button>
-          <button
+          <RouterLink
+            to="/login"
             :style="{ color: getNavIconColor() }"
             class="hover:opacity-70 transition-opacity duration-200"
           >
             <User :size="18" />
-          </button>
+          </RouterLink>
           <button
             :style="{ color: getNavIconColor() }"
             class="hover:opacity-70 transition-opacity duration-200"
@@ -460,7 +461,8 @@
             ></span>
             Shopping cart
           </RouterLink>
-          <button
+          <RouterLink
+            to="/login"
             class="flex items-center gap-3 text-sm text-left transition-colors"
             :style="{
               padding: '0.8rem 1.5rem',
@@ -474,8 +476,9 @@
               :style="{ color: isDark ? '#ffffff' : '#6b7280' }"
             />
             Account
-          </button>
+          </RouterLink>
           <button
+            @click="router.push('/login')"
             class="flex items-center gap-3 text-sm text-left transition-colors"
             :style="{
               padding: '0.8rem 1.5rem',
@@ -497,7 +500,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from "vue";
-import { RouterLink, useRoute } from "vue-router";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import {
   Search,
   User,
@@ -514,13 +517,14 @@ import { useTheme } from "../composables/useTheme";
 const route = useRoute();
 const { isDark, toggleTheme } = useTheme();
 
+const router = useRouter()
+
 const isOpen = ref(false);
 const scrolled = ref(false);
 const navVisible = ref(true);
 const lastScrollY = ref(0);
 const activeMegaMenu = ref<string | null>(null);
 const activeAccordion = ref<string | null>(null);
-
 
 const handleScroll = () => {
   scrolled.value = window.scrollY > 10;
@@ -872,7 +876,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-})
+});
 
 const closeMegaMenu = () => {
   activeMegaMenu.value = null;
