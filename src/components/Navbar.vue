@@ -83,8 +83,9 @@
             <Sun v-if="isDark" :size="18" />
             <Moon v-else :size="18" />
           </button>
-          <RouterLink
-            to="/cart"
+          <!-- Desktop cart button -->
+          <button
+            @click="openCart"
             class="flex items-center gap-2 text-[13px] transition-colors duration-200"
             :style="{ color: isDark ? '#ffffff' : '#1f2937' }"
           >
@@ -93,7 +94,7 @@
               class="w-1.5 h-1.5 rounded-full"
               :style="{ backgroundColor: isDark ? '#ffffff' : '#111111' }"
             ></span>
-          </RouterLink>
+          </button>
         </div>
       </div>
 
@@ -513,11 +514,13 @@ import {
   ChevronDown,
 } from "lucide-vue-next";
 import { useTheme } from "../composables/useTheme";
+import { useCart } from "../stores/cart";
+const { openCart, itemCount } = useCart();
 
 const route = useRoute();
 const { isDark, toggleTheme } = useTheme();
 
-const router = useRouter()
+const router = useRouter();
 
 const isOpen = ref(false);
 const scrolled = ref(false);

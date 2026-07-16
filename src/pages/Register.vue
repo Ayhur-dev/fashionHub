@@ -17,7 +17,7 @@
         style="padding: 1rem 2rem; border-bottom: 1px solid var(--border)"
       >
         <p class="text-sm" :style="{ color: 'var(--text-primary)' }">Account</p>
-        <p class="text-sm mx-auto!" style="color: #8b6343">Hello</p>
+        <p class="text-sm mx-auto!" style="color: #8b6343">Hello!</p>
       </div>
 
       <!-- Form Container -->
