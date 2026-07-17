@@ -446,22 +446,22 @@
             borderTop: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
           }"
         >
-        <button
-  type="button"
-  @click="goToCart"
-  class="flex items-center gap-3 text-sm transition-colors"
-  style="padding: 0.8rem 1.5rem"
-  :style="{
-    color: isDark ? '#ffffff' : '#4b5563',
-    borderBottom: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
-  }"
->
-  <span
-    class="w-1.5 h-1.5 rounded-full shrink-0"
-    :style="{ backgroundColor: isDark ? '#ffffff' : '#374151' }"
-  ></span>
-  Shopping cart
-</button>
+          <button
+            type="button"
+            @click="goToCart"
+            class="flex items-center gap-3 text-sm transition-colors"
+            style="padding: 0.8rem 1.5rem"
+            :style="{
+              color: isDark ? '#ffffff' : '#4b5563',
+              borderBottom: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
+            }"
+          >
+            <span
+              class="w-1.5 h-1.5 rounded-full shrink-0"
+              :style="{ backgroundColor: isDark ? '#ffffff' : '#374151' }"
+            ></span>
+            Shopping cart
+          </button>
           <RouterLink
             to="/login"
             class="flex items-center gap-3 text-sm text-left transition-colors"
@@ -515,7 +515,7 @@ import {
 } from "lucide-vue-next";
 import { useTheme } from "../composables/useTheme";
 import { useCart } from "../stores/cart";
-const { openCart, itemCount } = useCart();
+const { openCart } = useCart();
 
 const route = useRoute();
 const { isDark, toggleTheme } = useTheme();
@@ -523,9 +523,9 @@ const { isDark, toggleTheme } = useTheme();
 const router = useRouter();
 
 const goToCart = () => {
-  closeMenu()
-  router.push('/cart')
-}
+  closeMenu();
+  router.push("/cart");
+};
 
 const isOpen = ref(false);
 const scrolled = ref(false);
