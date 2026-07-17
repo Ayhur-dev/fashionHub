@@ -280,7 +280,7 @@
             type="submit"
             class="w-full py-4! text-xs font-medium tracking-widest uppercase mb-4! transition-opacity hover:opacity-80"
             :style="{
-              backgroundColor: 'var(--text-primary)',
+              backgroundColor: 'var(--button-bg)',
               color: 'var(--bg)',
             }"
           >
