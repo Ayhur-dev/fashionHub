@@ -57,7 +57,9 @@
 
         <div class="flex items-center gap-5 shrink-0">
           <button
-            :style="{ color: getIconColor(false) }"
+            type="button"
+            @click="showSearch = !showSearch"
+            :style="{ color: getIconColor(showSearch) }"
             class="hover:opacity-70 transition-opacity duration-200"
           >
             <Search :size="18" />
@@ -86,12 +88,24 @@
           </button>
           <!-- Desktop cart button -->
           <button
-            @click="openCart"
+            @click="triggerCart(router)"
             class="flex items-center gap-2 text-[13px] transition-colors duration-200"
             :style="{ color: isDark ? '#ffffff' : '#1f2937' }"
           >
             Shopping cart
             <span
+              v-if="itemCount > 0"
+              class="flex items-center justify-center rounded-full text-[10px] font-medium"
+              style="min-width: 16px; height: 16px; padding: 0 4px"
+              :style="{
+                backgroundColor: isDark ? '#ffffff' : '#111111',
+                color: isDark ? '#111111' : '#ffffff',
+              }"
+            >
+              {{ itemCount }}
+            </span>
+            <span
+              v-else
               class="w-1.5 h-1.5 rounded-full"
               :style="{ backgroundColor: isDark ? '#ffffff' : '#111111' }"
             ></span>
@@ -113,7 +127,7 @@
           Nyx Collective
         </RouterLink>
         <div class="flex items-center gap-4">
-          <button :style="{ color: getIconColor(false) }">
+          <button type="button" @click="showSearch = !showSearch" :style="{ color: getIconColor(showSearch) }">
             <Search :size="17" />
           </button>
           <RouterLink
@@ -122,10 +136,25 @@
           >
             <Heart :size="17" :fill="isFavoritesActive ? 'currentColor' : 'none'" />
           </RouterLink>
-          <span
-            class="w-1.5 h-1.5 rounded-full"
-            :style="{ backgroundColor: isDark ? '#ffffff' : '#111111' }"
-          ></span>
+          <button
+            type="button"
+            @click="triggerCart(router)"
+            class="relative flex items-center justify-center"
+            :style="{ color: isDark ? '#ffffff' : '#111111' }"
+          >
+            <ShoppingBag :size="17" />
+            <span
+              v-if="itemCount > 0"
+              class="absolute flex items-center justify-center rounded-full text-[9px] font-medium"
+              style="min-width: 14px; height: 14px; padding: 0 3px; top: -6px; right: -6px"
+              :style="{
+                backgroundColor: isDark ? '#ffffff' : '#111111',
+                color: isDark ? '#111111' : '#ffffff',
+              }"
+            >
+              {{ itemCount }}
+            </span>
+          </button>
           <button
             @click="toggleTheme"
             class="transition-colors duration-300"
@@ -461,6 +490,18 @@
             }"
           >
             <span
+              v-if="itemCount > 0"
+              class="flex items-center justify-center rounded-full text-[10px] font-medium shrink-0"
+              style="min-width: 16px; height: 16px; padding: 0 4px"
+              :style="{
+                backgroundColor: isDark ? '#ffffff' : '#374151',
+                color: isDark ? '#111111' : '#ffffff',
+              }"
+            >
+              {{ itemCount }}
+            </span>
+            <span
+              v-else
               class="w-1.5 h-1.5 rounded-full shrink-0"
               :style="{ backgroundColor: isDark ? '#ffffff' : '#374151' }"
             ></span>
@@ -517,6 +558,8 @@
         </div>
       </div>
     </Teleport>
+
+    <SearchOverlay :is-open="showSearch" @close="showSearch = false" />
   </div>
 </template>
 
@@ -533,10 +576,12 @@ import {
   Sun,
   Moon,
   ChevronDown,
+  ShoppingBag,
 } from "lucide-vue-next";
 import { useTheme } from "../composables/useTheme";
 import { useCart } from "../composables/stores/cart";
-const { openCart } = useCart();
+import SearchOverlay from "./SearchOverlay.vue";
+const { openCart, itemCount, triggerCart } = useCart();
 
 const route = useRoute();
 const { isDark, toggleTheme } = useTheme();
@@ -553,6 +598,7 @@ const scrolled = ref(false);
 const navVisible = ref(true);
 const lastScrollY = ref(0);
 const activeMegaMenu = ref<string | null>(null);
+const showSearch = ref(false);
 const activeAccordion = ref<string | null>(null);
 
 const handleScroll = () => {
