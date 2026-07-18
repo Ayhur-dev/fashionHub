@@ -1,20 +1,20 @@
 <template>
   <div
     class="h-screen flex flex-col overflow-hidden"
-    :style="{ backgroundColor: 'var(--bg)', fontFamily: 'Futura PT, sans-serif' }"
+    :style="{
+      backgroundColor: 'var(--bg)',
+      fontFamily: 'Futura PT, sans-serif',
+    }"
   >
     <!-- Desktop logo bar -->
-    <header
-      class="hidden lg:block shrink-0"
-     
-    >
+    <header class="hidden lg:block shrink-0">
       <div class="max-w-350! mx-auto! px-10! py-6!">
         <router-link
           to="/"
           class="text-xl font-semibold tracking-tight"
           :style="{ color: 'var(--text-primary)' }"
         >
-         Nyx Collective
+          Nyx Collective
         </router-link>
       </div>
     </header>
@@ -30,7 +30,6 @@
           :key="step"
           class="px-10! py-4!"
           :style="{
-           
             borderBottom:
               i === activeStep
                 ? '2px solid var(--text-primary)'
@@ -116,11 +115,8 @@
           <div class="flex gap-4!">
             <!-- Image -->
             <div
-              class="shrink-0  w-32.5 h-45 lg:w-47.5 lg:h-65"
-              style="
-               
-                background-color: var(--bg-secondary);
-              "
+              class="shrink-0 w-32.5 h-45 lg:w-47.5 lg:h-65"
+              style="background-color: var(--bg-secondary)"
             >
               <img
                 :src="item.image"
@@ -168,9 +164,7 @@
                   −
                 </button>
 
-                <span
-                  class="text-xs"
-                  :style="{ color: 'var(--text-primary)' }"
+                <span class="text-xs" :style="{ color: 'var(--text-primary)' }"
                   >Qty {{ item.quantity }}</span
                 >
                 <button
@@ -258,7 +252,6 @@
         class="shrink-0 lg:w-110 lg:my-10!"
         style="padding: 1.5rem"
         :style="{
-         
           borderLeft: isDesktopBorder ? '1px solid var(--border)' : 'none',
         }"
       >
@@ -439,23 +432,22 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import { useCart } from "../stores/cart";
+import { useCart } from "../composables/stores/cart";
 import { useTheme } from "../composables/useTheme";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const {
-  items,
-  total,
-  itemCount,
-  increaseQty,
-  decreaseQty,
-  removeItem,
-} = useCart();
+const { items, total, itemCount, increaseQty, decreaseQty, removeItem } =
+  useCart();
 const { isDark } = useTheme();
 
-const steps = ["Cart", "Personal details", "Shipping details", "Payment & Confirmation"];
+const steps = [
+  "Cart",
+  "Personal details",
+  "Shipping details",
+  "Payment & Confirmation",
+];
 const activeStep = 0;
 
 const showPromo = ref(false);
@@ -477,7 +469,6 @@ onMounted(() => {
     if (mediaQuery.addEventListener) {
       mediaQuery.addEventListener("change", updateBorder);
     } else {
-    
       mediaQuery.addListener(updateBorder);
     }
   }
@@ -487,7 +478,6 @@ onUnmounted(() => {
     if (mediaQuery.removeEventListener) {
       mediaQuery.removeEventListener("change", updateBorder);
     } else {
-    
       mediaQuery.removeListener(updateBorder);
     }
   }

@@ -103,8 +103,15 @@
               {{ product.price }} USD
             </p>
           </div>
-          <button class="shrink-0" style="color: var(--text-secondary)">
-            <Heart :size="16" />
+          <button
+            class="shrink-0"
+            style="color: var(--text-secondary)"
+            @click.stop="handleToggleFavorite(product)"
+          >
+            <Heart
+              :size="16"
+              :fill="isFavorite(product.id) ? 'currentColor' : 'none'"
+            />
           </button>
         </div>
       </div>
@@ -114,7 +121,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-vue-next";
+import { useAuth } from "../composables/stores/useAuth";
+import { useFavorites, type FavoriteItem } from "../composables/stores/favorites";
+import { useToast } from "../composables/stores/useToast";
 
 const props = defineProps<{
   products: {
@@ -130,6 +141,7 @@ const props = defineProps<{
   }[];
 }>();
 
+const router = useRouter();
 const hoveredIndex = ref<number | null>(null);
 const cardRefs = ref<HTMLElement[]>([]);
 const products = ref(props.products.map((p) => ({ ...p })));
@@ -148,6 +160,45 @@ const nextImage = (index: number) => {
     product.currentImage === product.images.length - 1
       ? 0
       : product.currentImage + 1;
+};
+
+// ---- Favorites wiring ----
+const { isLoggedIn } = useAuth();
+const { isFavorite, toggleFavorite } = useFavorites();
+const { showToast } = useToast();
+
+// Product price here is a string (sometimes comma-formatted, e.g. "1,500"),
+// same as in ProductDetail.vue's data — normalize before storing.
+const parsePrice = (price: number | string): number => {
+  if (typeof price === "number") return price;
+  const cleaned = price.replace(/[,\s]/g, "");
+  const parsed = Number(cleaned);
+  return Number.isNaN(parsed) ? 0 : parsed;
+};
+
+const handleToggleFavorite = (product: {
+  id: number;
+  name: string;
+  price: string;
+  images: string[];
+  currentImage: number;
+}) => {
+  if (!isLoggedIn.value) {
+    router.push("/login");
+    return;
+  }
+
+  const item: FavoriteItem = {
+    id: product.id,
+    name: product.name,
+    price: parsePrice(product.price),
+    image: product.images[product.currentImage],
+  };
+
+  const added = toggleFavorite(item);
+  showToast(
+    added ? `${item.name} added to favorites` : `${item.name} removed from favorites`,
+  );
 };
 
 onMounted(() => {});

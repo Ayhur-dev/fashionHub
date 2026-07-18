@@ -291,7 +291,7 @@
 
 <script setup lang="ts">
 import { X } from "lucide-vue-next";
-import { useCart } from "../stores/cart";
+import { useCart } from "../composables/stores/cart";
 import { useTheme } from "../composables/useTheme";
 import { useRouter } from "vue-router";
 
@@ -308,8 +308,6 @@ const {
   removeItem,
 } = useCart();
 const { isDark } = useTheme();
-
-
 
 const estimatedDelivery = (() => {
   const date = new Date();

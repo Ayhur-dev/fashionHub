@@ -57,24 +57,25 @@
 
         <div class="flex items-center gap-5 shrink-0">
           <button
-            :style="{ color: getNavIconColor() }"
+            :style="{ color: getIconColor(false) }"
             class="hover:opacity-70 transition-opacity duration-200"
           >
             <Search :size="18" />
           </button>
           <RouterLink
             to="/login"
-            :style="{ color: getNavIconColor() }"
+            :style="{ color: getIconColor(isAccountActive) }"
             class="hover:opacity-70 transition-opacity duration-200"
           >
-            <User :size="18" />
+            <User :size="18" :fill="isAccountActive ? 'currentColor' : 'none'" />
           </RouterLink>
-          <button
-            :style="{ color: getNavIconColor() }"
+          <RouterLink
+            to="/favorites"
+            :style="{ color: getIconColor(isFavoritesActive) }"
             class="hover:opacity-70 transition-opacity duration-200"
           >
-            <Heart :size="18" />
-          </button>
+            <Heart :size="18" :fill="isFavoritesActive ? 'currentColor' : 'none'" />
+          </RouterLink>
           <button
             @click="toggleTheme"
             class="transition-colors duration-300"
@@ -112,12 +113,15 @@
           Nyx Collective
         </RouterLink>
         <div class="flex items-center gap-4">
-          <button :style="{ color: isDark ? '#ffffff' : '#111111' }">
+          <button :style="{ color: getIconColor(false) }">
             <Search :size="17" />
           </button>
-          <button :style="{ color: isDark ? '#ffffff' : '#111111' }">
-            <Heart :size="17" />
-          </button>
+          <RouterLink
+            to="/favorites"
+            :style="{ color: getIconColor(isFavoritesActive) }"
+          >
+            <Heart :size="17" :fill="isFavoritesActive ? 'currentColor' : 'none'" />
+          </RouterLink>
           <span
             class="w-1.5 h-1.5 rounded-full"
             :style="{ backgroundColor: isDark ? '#ffffff' : '#111111' }"
@@ -478,6 +482,23 @@
             />
             Account
           </RouterLink>
+          <RouterLink
+            to="/favorites"
+            @click="closeMenu"
+            class="flex items-center gap-3 text-sm text-left transition-colors"
+            :style="{
+              padding: '0.8rem 1.5rem',
+              color: isDark ? '#ffffff' : '#4b5563',
+              borderBottom: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
+            }"
+          >
+            <Heart
+              :size="14"
+              class="shrink-0"
+              :style="{ color: isDark ? '#ffffff' : '#6b7280' }"
+            />
+            Favorites
+          </RouterLink>
           <button
             @click="router.push('/login')"
             class="flex items-center gap-3 text-sm text-left transition-colors"
@@ -500,7 +521,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from "vue";
+import { ref, computed, onMounted, onUnmounted, watch } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import {
   Search,
@@ -514,7 +535,7 @@ import {
   ChevronDown,
 } from "lucide-vue-next";
 import { useTheme } from "../composables/useTheme";
-import { useCart } from "../stores/cart";
+import { useCart } from "../composables/stores/cart";
 const { openCart } = useCart();
 
 const route = useRoute();
@@ -600,6 +621,15 @@ const closeMenu = () => {
   isOpen.value = false;
 };
 const getNavIconColor = () => (isDark.value ? "#ffffff" : "#111111");
+
+// Active-state color for nav icons: full-strength black/white when the
+// icon's page is currently active, muted secondary color otherwise.
+// Pass `false` (e.g. for Search, which has no page yet) to always mute it.
+const getIconColor = (isActive: boolean) =>
+  isActive ? getNavIconColor() : "var(--text-secondary)";
+
+const isFavoritesActive = computed(() => route.path === "/favorites");
+const isAccountActive = computed(() => route.path === "/login");
 
 const megaMenus: Record<
   string,

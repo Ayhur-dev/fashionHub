@@ -21,8 +21,13 @@
         <!-- Custom Cursor -->
         <div
           v-show="showCursor"
-          class="fixed pointer-events-none z-50 flex items-center justify-center rounded-full bg-white shadow-md"
-          style="width: 48px; height: 48px; transform: translate(-50%, -50%)"
+          class="fixed z-50 flex items-center justify-center rounded-full bg-white shadow-md"
+          style="
+            width: 48px;
+            height: 48px;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+          "
           :style="{ left: cursorX + 'px', top: cursorY + 'px' }"
         >
           <span style="font-size: 20px; color: #111; font-weight: 300">+</span>
@@ -44,8 +49,12 @@
         <button
           class="absolute bottom-6 right-6 z-10"
           :style="{ color: 'var(--text-secondary)' }"
+          @click="handleToggleFavorite(mainFavoriteItem)"
         >
-          <Heart :size="20" />
+          <Heart
+            :size="20"
+            :fill="isFavorite(product.id) ? 'currentColor' : 'none'"
+          />
         </button>
       </div>
 
@@ -342,7 +351,16 @@
                   {{ item.price }} USD
                 </p>
               </div>
-              <Heart :size="14" :style="{ color: 'var(--text-secondary)' }" />
+              <button
+                type="button"
+                @click.stop="handleToggleFavorite(lookItemToFavorite(item))"
+              >
+                <Heart
+                  :size="14"
+                  :style="{ color: 'var(--text-secondary)' }"
+                  :fill="isFavorite(item.name) ? 'currentColor' : 'none'"
+                />
+              </button>
             </div>
           </div>
         </div>
@@ -453,7 +471,13 @@
         <p class="text-md font-book" :style="{ color: 'var(--text-primary)' }">
           {{ product.name }}
         </p>
-        <Heart :size="18" :style="{ color: 'var(--text-secondary)' }" />
+        <button type="button" @click="handleToggleFavorite(mainFavoriteItem)">
+          <Heart
+            :size="18"
+            :style="{ color: 'var(--text-secondary)' }"
+            :fill="isFavorite(product.id) ? 'currentColor' : 'none'"
+          />
+        </button>
       </div>
 
       <!-- Details -->
@@ -625,7 +649,16 @@
                   {{ item.price }} USD
                 </p>
               </div>
-              <Heart :size="14" :style="{ color: 'var(--text-secondary)' }" />
+              <button
+                type="button"
+                @click.stop="handleToggleFavorite(lookItemToFavorite(item))"
+              >
+                <Heart
+                  :size="14"
+                  :style="{ color: 'var(--text-secondary)' }"
+                  :fill="isFavorite(item.name) ? 'currentColor' : 'none'"
+                />
+              </button>
             </div>
           </div>
         </div>
@@ -718,13 +751,17 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { Heart, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-vue-next";
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import { products } from "../data/Products";
+import { useAuth } from "../composables/stores/useAuth";
+import { useFavorites, type FavoriteItem } from "../composables/stores/favorites";
+import { useToast } from "../composables/stores/useToast";
 
 const route = useRoute();
+const router = useRouter();
 
 const product = computed(() => {
   const id = Number(route.params.id);
@@ -784,4 +821,58 @@ const breadcrumbs = computed(() => [
   ...product.value.breadcrumb,
   { label: product.value.name, to: null },
 ]);
+
+// ---- Favorites wiring ----
+const { isLoggedIn } = useAuth();
+const { isFavorite, toggleFavorite } = useFavorites();
+const { showToast } = useToast();
+
+// Your product data stores prices as strings, sometimes with commas
+// (e.g. "50,000", "12,500"). The favorites store wants a plain number,
+// so strip commas/whitespace before parsing either way.
+const parsePrice = (price: number | string): number => {
+  if (typeof price === "number") return price;
+  const cleaned = price.replace(/[,\s]/g, "");
+  const parsed = Number(cleaned);
+  return Number.isNaN(parsed) ? 0 : parsed;
+};
+
+// The main product being viewed, shaped for the favorites store.
+// Includes the currently selected color so the Favorites list can show it.
+const mainFavoriteItem = computed<FavoriteItem>(() => ({
+  id: product.value.id,
+  name: product.value.name,
+  price: parsePrice(product.value.price),
+  image: product.value.images[0],
+  color: selectedColor.value,
+}));
+
+// "Complete the look" tiles don't necessarily carry an id in the data file yet;
+// fall back to name so favoriting still works. Add a real id to those objects
+// in your product data when convenient.
+const lookItemToFavorite = (item: {
+  id?: number | string;
+  name: string;
+  price: number | string;
+  image: string;
+}): FavoriteItem => ({
+  id: item.id ?? item.name,
+  name: item.name,
+  price: parsePrice(item.price),
+  image: item.image,
+});
+
+const handleToggleFavorite = (item: FavoriteItem) => {
+  if (!isLoggedIn.value) {
+    router.push("/login");
+    return;
+  }
+
+  const added = toggleFavorite(item);
+  showToast(
+    added
+      ? `${item.name} added to favorites`
+      : `${item.name} removed from favorites`,
+  );
+};
 </script>

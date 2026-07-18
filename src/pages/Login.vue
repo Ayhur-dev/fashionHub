@@ -219,13 +219,16 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import { useTheme } from "../composables/useTheme";
+import { useAuth } from "../composables/stores/useAuth";
 
 const { isDark } = useTheme();
 const router = useRouter();
+const route = useRoute();
+const { login } = useAuth();
 const email = ref("");
 const error = ref("");
 
@@ -244,6 +247,14 @@ const handleLogin = async () => {
 
   error.value = "";
 
+  // TEMP MOCK — no backend yet, so this just flips the shared isLoggedIn
+  // flag rather than checking credentials. Once the auth API is ready,
+  // replace this block with a real request and only call login() on success.
   console.log("Login with:", email.value);
+  login();
+
+  const redirectTo =
+    typeof route.query.redirect === "string" ? route.query.redirect : "/favorites";
+  router.push(redirectTo);
 };
 </script>
