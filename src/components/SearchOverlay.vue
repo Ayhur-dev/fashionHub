@@ -80,7 +80,7 @@
               :key="item.id"
               class="shrink-0 cursor-pointer"
               style="width: 150px"
-              @click="goToWomen"
+              @click="goToBags"
             >
               <div
                 class="overflow-hidden"
@@ -234,7 +234,7 @@
               :key="item.id"
               class="shrink-0 cursor-pointer"
               style="width: 45%"
-              @click="goToWomen"
+              @click="goToBags"
             >
               <div
                 class="overflow-hidden"
@@ -290,9 +290,9 @@ const suggestedProducts: SearchThumbnail[] = [
 
 const close = () => emit("close");
 
-const goToWomen = () => {
+const goToBags = () => {
   close();
-  router.push("/Women");
+  router.push("/women");
 };
 
 const desktopRowRef = ref<HTMLElement | null>(null);

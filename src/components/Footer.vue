@@ -245,8 +245,8 @@
         <div
           class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 mt-2"
         >
-          <a
-            href="#"
+          <RouterLink
+            to="/contact"
             class="text-xs transition-opacity duration-200 hover:opacity-60"
             style="
               color: var(--text-primary);
@@ -255,7 +255,7 @@
             "
           >
             Contact form
-          </a>
+          </RouterLink>
 
           <a
             href="#"
@@ -396,14 +396,24 @@
               : 'max-height: 0px; opacity: 0'
           "
         >
-          <a
-            v-for="link in companyLinks"
-            :key="link"
-            href="#"
-            class="text-xs leading-loose hover:opacity-60 transition-opacity duration-200"
-            style="color: var(--text-secondary)"
-            >{{ link }}</a
-          >
+          <template v-for="link in companyLinks" :key="link.label">
+            <RouterLink
+              v-if="link.to"
+              :to="link.to"
+              class="text-xs leading-loose hover:opacity-60 transition-opacity duration-200"
+              style="color: var(--text-secondary)"
+            >
+              {{ link.label }}
+            </RouterLink>
+            <a
+              v-else
+              href="#"
+              class="text-xs leading-loose hover:opacity-60 transition-opacity duration-200"
+              style="color: var(--text-secondary)"
+            >
+              {{ link.label }}
+            </a>
+          </template>
         </div>
       </div>
 
@@ -490,6 +500,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
+import { RouterLink } from "vue-router";
 import { ChevronDown } from "lucide-vue-next";
 
 const legalOpen = ref(false);
@@ -515,11 +526,13 @@ const faqLinks = [
   "Gift Card",
 ];
 
-const companyLinks = [
-  "Contact us",
-  "Stores",
-  "Book an appointment in store",
-  "Career",
+// Only "Contact us" gets a real route for now; the rest stay as plain
+// placeholder links (`to: undefined`) until those pages exist.
+const companyLinks: { label: string; to?: string }[] = [
+  { label: "Contact us", to: "/contact" },
+  { label: "Stores" },
+  { label: "Book an appointment in store" },
+  { label: "Career" },
 ];
 
 const newsletterOpen = ref(false);

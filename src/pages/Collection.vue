@@ -58,7 +58,13 @@
           style="width: 40vw"
           :style="{ borderRight: '1px solid var(--border)' }"
         >
-          <div style="overflow: hidden; background-color: var(--bg-secondary)">
+          <div
+            style="
+              overflow: hidden;
+              background-color: var(--bg-secondary);
+              aspect-ratio: 3/4;
+            "
+          >
             <img
               :src="product.image"
               :alt="product.name"

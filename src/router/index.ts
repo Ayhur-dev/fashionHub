@@ -6,6 +6,7 @@ import Cart from "../pages/Cart.vue";
 import Login from "../pages/Login.vue";
 import Register from "../pages/Register.vue";
 import Favorites from "../pages/favorites.vue";
+import Contact from "../pages/Contact.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -24,6 +25,7 @@ const router = createRouter({
     { path: "/login", component: Login },
     { path: "/register", component: Register },
     { path: "/favorites", name: "favorites", component: Favorites },
+    { path: "/contact", name: "contact", component: Contact },
   ],
   scrollBehavior() {
     return { top: 0 };
