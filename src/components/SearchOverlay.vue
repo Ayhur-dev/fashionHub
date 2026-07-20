@@ -3,21 +3,20 @@
   <Transition name="search-desktop">
     <div
       v-if="isOpen"
-      class="hidden lg:block fixed left-0 right-0 z-40 overflow-hidden"
-      style="top: 82px"
+      class="hidden lg:block fixed left-0 right-0 top-0 z-40 overflow-hidden"
       :style="{
         backgroundColor: isDark ? '#222831' : '#ffffff',
         borderTop: `1px solid ${isDark ? '#333' : '#e5e5e5'}`,
       }"
     >
       <!-- Input row -->
-      <div class="flex items-center gap-4" style="padding: 1.5rem 2rem">
+      <div class="flex items-center justify-between gap-4" style="padding: 1.5rem 2rem 3rem 2rem">
         <input
           v-model="query"
           type="text"
           placeholder="Search here"
-          class="flex-1 text-base bg-transparent outline-none pb-2!"
-          style="border-bottom: 2px solid var(--border-secondary)"
+          class="w-140 text-base bg-transparent outline-none pb-2!"
+          style="border-bottom: 1px solid var(--border-secondary)"
           :style="{ color: isDark ? '#ffffff' : '#111111' }"
         />
         <button
@@ -81,7 +80,7 @@
               :key="item.id"
               class="shrink-0 cursor-pointer"
               style="width: 150px"
-              @click="goToProduct(item.id)"
+              @click="goToWomen"
             >
               <div
                 class="overflow-hidden"
@@ -146,7 +145,11 @@
   <div
     v-if="isOpen"
     class="hidden lg:block fixed inset-0 z-30"
-    style="top: 82px; background-color: rgba(0, 0, 0, 0.2)"
+    :style="{
+      backgroundColor: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.35)',
+      backdropFilter: 'blur(6px)',
+      WebkitBackdropFilter: 'blur(6px)',
+    }"
     @click="close"
   ></div>
 
@@ -231,7 +234,7 @@
               :key="item.id"
               class="shrink-0 cursor-pointer"
               style="width: 45%"
-              @click="goToProduct(item.id)"
+              @click="goToWomen"
             >
               <div
                 class="overflow-hidden"
@@ -252,11 +255,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, nextTick, watch } from "vue";
+import { ref, reactive, nextTick, watch, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import { X, ChevronLeft, ChevronRight } from "lucide-vue-next";
 import { useTheme } from "../composables/useTheme";
-import { products } from "../data/Products";
 
 const props = defineProps<{ isOpen: boolean }>();
 const emit = defineEmits<{ close: [] }>();
@@ -271,19 +273,30 @@ const query = ref("");
 const textSuggestions = ['"Plage" - New In', "The Valéries", "The Bambinos"];
 const categorySuggestions = ["Bags", "Hats"];
 
-// Placeholder "most viewed / suggested" row — pulls straight from your
-// existing product data until there's a real most-viewed/search endpoint.
-const suggestedProducts = products.slice(0, 6);
+interface SearchThumbnail {
+  id: number;
+  name: string;
+  images: [string];
+}
+
+const suggestedProducts: SearchThumbnail[] = [
+  { id: 1, name: "The Valéries", images: ["/bag-1.avif"] },
+  { id: 2, name: "The Bambinos", images: ["/bag-2.avif"] },
+  { id: 3, name: "Baskets & Raffia", images: ["/bag-3.avif"] },
+  { id: 4, name: "The Rond Carré clutch", images: ["/bag-4.avif"] },
+  { id: 5, name: "The Turismos", images: ["/bag-5.avif"] },
+  { id: 6, name: "The Bisous", images: ["/bag-6.avif"] },
+];
 
 const close = () => emit("close");
 
-const goToProduct = (id: number) => {
+const goToWomen = () => {
   close();
-  router.push(`/product/${id}`);
+  router.push("/Women");
 };
 
 const desktopRowRef = ref<HTMLElement | null>(null);
-const mobileRowRef = ref<HTMLElement | null>(null);
+
 
 const scrollState = reactive({
   desktop: { canScrollLeft: false, canScrollRight: true, thumbWidth: 100, thumbOffset: 0 },
@@ -307,10 +320,14 @@ const scrollRow = (el: HTMLElement | null, amount: number) => {
   el.scrollBy({ left: amount, behavior: "smooth" });
 };
 
-// Recalculate the scroll bar once the panel becomes visible and has real dimensions.
+// Recalculate the scroll bar once the panel becomes visible and has real dimensions,
+// and lock page scroll behind it (both breakpoints — the mobile sheet is opaque and
+// full-screen, but the page underneath could still scroll without this).
 watch(
   () => props.isOpen,
   async (open) => {
+    document.body.style.overflow = open ? "hidden" : "";
+
     if (open) {
       query.value = "";
       await nextTick();
@@ -318,6 +335,10 @@ watch(
     }
   },
 );
+
+onUnmounted(() => {
+  document.body.style.overflow = "";
+});
 </script>
 
 <style scoped>

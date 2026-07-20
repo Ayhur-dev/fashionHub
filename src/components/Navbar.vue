@@ -11,9 +11,10 @@
           : activeMegaMenu || !scrolled
             ? 'var(--nav-bg)'
             : 'transparent',
-        opacity: navVisible ? '1' : '0',
-        pointerEvents: navVisible ? 'auto' : 'none',
-        transform: navVisible ? 'translateY(0)' : 'translateY(-100%)',
+        opacity: navVisible && !showSearch ? '1' : '0',
+        pointerEvents: navVisible && !showSearch ? 'auto' : 'none',
+        transform:
+          navVisible && !showSearch ? 'translateY(0)' : 'translateY(-100%)',
       }"
     >
       <!-- Desktop Navbar -->
@@ -69,14 +70,20 @@
             :style="{ color: getIconColor(isAccountActive) }"
             class="hover:opacity-70 transition-opacity duration-200"
           >
-            <User :size="18" :fill="isAccountActive ? 'currentColor' : 'none'" />
+            <User
+              :size="18"
+              :fill="isAccountActive ? 'currentColor' : 'none'"
+            />
           </RouterLink>
           <RouterLink
             to="/favorites"
             :style="{ color: getIconColor(isFavoritesActive) }"
             class="hover:opacity-70 transition-opacity duration-200"
           >
-            <Heart :size="18" :fill="isFavoritesActive ? 'currentColor' : 'none'" />
+            <Heart
+              :size="18"
+              :fill="isFavoritesActive ? 'currentColor' : 'none'"
+            />
           </RouterLink>
           <button
             @click="toggleTheme"
@@ -127,14 +134,21 @@
           Nyx Collective
         </RouterLink>
         <div class="flex items-center gap-4">
-          <button type="button" @click="showSearch = !showSearch" :style="{ color: getIconColor(showSearch) }">
+          <button
+            type="button"
+            @click="showSearch = !showSearch"
+            :style="{ color: getIconColor(showSearch) }"
+          >
             <Search :size="17" />
           </button>
           <RouterLink
             to="/favorites"
             :style="{ color: getIconColor(isFavoritesActive) }"
           >
-            <Heart :size="17" :fill="isFavoritesActive ? 'currentColor' : 'none'" />
+            <Heart
+              :size="17"
+              :fill="isFavoritesActive ? 'currentColor' : 'none'"
+            />
           </RouterLink>
           <button
             type="button"
@@ -146,7 +160,13 @@
             <span
               v-if="itemCount > 0"
               class="absolute flex items-center justify-center rounded-full text-[9px] font-medium"
-              style="min-width: 14px; height: 14px; padding: 0 3px; top: -6px; right: -6px"
+              style="
+                min-width: 14px;
+                height: 14px;
+                padding: 0 3px;
+                top: -6px;
+                right: -6px;
+              "
               :style="{
                 backgroundColor: isDark ? '#ffffff' : '#111111',
                 color: isDark ? '#111111' : '#ffffff',
@@ -581,7 +601,7 @@ import {
 import { useTheme } from "../composables/useTheme";
 import { useCart } from "../composables/stores/cart";
 import SearchOverlay from "./SearchOverlay.vue";
-const { openCart, itemCount, triggerCart } = useCart();
+const { itemCount, triggerCart } = useCart();
 
 const route = useRoute();
 const { isDark, toggleTheme } = useTheme();
