@@ -117,6 +117,7 @@
       </div>
     </div>
   </section>
+  <ScrollToBottomButton />
 </template>
 
 <script setup lang="ts">
@@ -124,8 +125,12 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-vue-next";
 import { useAuth } from "../composables/stores/useAuth";
-import { useFavorites, type FavoriteItem } from "../composables/stores/favorites";
+import {
+  useFavorites,
+  type FavoriteItem,
+} from "../composables/stores/favorites";
 import { useToast } from "../composables/stores/useToast";
+import ScrollToBottomButton from "../components/ScrollToBottom.vue";
 
 const props = defineProps<{
   products: {
@@ -197,7 +202,9 @@ const handleToggleFavorite = (product: {
 
   const added = toggleFavorite(item);
   showToast(
-    added ? `${item.name} added to favorites` : `${item.name} removed from favorites`,
+    added
+      ? `${item.name} added to favorites`
+      : `${item.name} removed from favorites`,
   );
 };
 

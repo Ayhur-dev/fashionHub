@@ -222,7 +222,7 @@
 
         <button
           @click="newsletterOpen ? handleSubmit() : (newsletterOpen = true)"
-          class="w-full py-4! text-xs font-medium tracking-widest uppercase duration-300 "
+          class="w-full py-4! text-xs font-medium tracking-widest uppercase duration-300"
           :style="
             newsletterOpen
               ? 'background-color: var(--bg); color: var(--text-primary); border: 1px solid var(--text-primary);'
@@ -257,8 +257,8 @@
             Contact form
           </RouterLink>
 
-          <a
-            href="#"
+          <RouterLink
+            to="/track-order"
             class="text-xs transition-opacity duration-200 hover:opacity-60"
             style="
               color: var(--text-primary);
@@ -267,7 +267,7 @@
             "
           >
             Track an order
-          </a>
+          </RouterLink>
 
           <a
             href="#"

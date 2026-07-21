@@ -22,9 +22,10 @@ html {
   --text-primary: #111111;
   --text-secondary: #555555;
   --border: #e5e5e5;
-  --border-secondary: #A4A4A4;
+  --border-secondary: #a4a4a4;
   --nav-bg: rgba(255, 255, 255);
   --button-bg: #2e2e2e;
+  --icon-color: #222831;
 }
 
 /* Dark mode */
@@ -34,8 +35,9 @@ html.dark {
   --text-primary: #f0f0f0;
   --text-secondary: #999999;
   --border: #2a2a2a;
-  --button-bg: #E1DFE0;
+  --button-bg: #e1dfe0;
   --nav-bg: #222831;
+  --icon-color: #ffffff;
 }
 
 body {

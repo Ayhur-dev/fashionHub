@@ -11,11 +11,13 @@
       "
     >
       <!-- Top label -->
-      <div
-        :style="{ borderBottom: '1px solid var(--border)' }"
-        class="py-4! md:py-15! px-5! md:px-10!"
-      >
+      <div class="py-4! md:py-15! px-5! md:px-10!">
         <p class="text-md" :style="{ color: 'var(--text-primary)' }">Company</p>
+
+        <div
+          class="mt-8! h-px w-full"
+          :style="{ backgroundColor: 'var(--border-secondary)' }"
+        ></div>
       </div>
 
       <!-- Mobile subnav dropdown -->
@@ -104,14 +106,14 @@
                   v-model="form.firstName"
                   type="text"
                   @blur="markTouched('firstName')"
-                  class="w-full text-sm bg-transparent outline-none pb-2!"
+                  class="w-full text-base bg-transparent outline-none pb-2!"
                   :style="{
                     borderBottom: showError(
                       'firstName',
                       form.firstName.trim() !== '',
                     )
-                      ? '2px solid #dc2626'
-                      : '2px solid var(--border-secondary)',
+                      ? '1px solid #dc2626'
+                      : '1px solid var(--text-primary)',
                     color: 'var(--text-primary)',
                   }"
                 />
@@ -134,14 +136,14 @@
                   v-model="form.lastName"
                   type="text"
                   @blur="markTouched('lastName')"
-                  class="w-full text-sm bg-transparent outline-none pb-2!"
+                  class="w-full text-base bg-transparent outline-none pb-2!"
                   :style="{
                     borderBottom: showError(
                       'lastName',
                       form.lastName.trim() !== '',
                     )
-                      ? '2px solid #dc2626'
-                      : '2px solid var(--border-secondary)',
+                      ? '1px solid #dc2626'
+                      : '1px solid var(--text-primary)',
                     color: 'var(--text-primary)',
                   }"
                 />
@@ -167,11 +169,11 @@
                 v-model="form.email"
                 type="email"
                 @blur="markTouched('email')"
-                class="w-full text-sm bg-transparent outline-none pb-2!"
+                class="w-full text-base bg-transparent outline-none pb-2!"
                 :style="{
                   borderBottom: showError('email', emailRegex.test(form.email))
-                    ? '2px solid #dc2626'
-                    : '2px solid var(--border-secondary)',
+                    ? '1px solid #dc2626'
+                    : '1px solid var(--text-primary)',
                   color: 'var(--text-primary)',
                 }"
               />
@@ -195,7 +197,7 @@
                 </label>
                 <select
                   v-model="form.countryCode"
-                  class="w-full text-sm bg-transparent outline-none pb-2!"
+                  class="w-full text-base bg-transparent outline-none pb-2!"
                   style="border-bottom: 1px solid var(--text-primary)"
                   :style="{ color: 'var(--text-primary)' }"
                 >
@@ -219,11 +221,11 @@
                   v-model="form.phone"
                   type="tel"
                   @blur="markTouched('phone')"
-                  class="w-full text-sm bg-transparent outline-none pb-2!"
+                  class="w-full text-base bg-transparent outline-none pb-2!"
                   :style="{
                     borderBottom: showError('phone', form.phone.trim() !== '')
-                      ? '2px solid #dc2626'
-                      : '2px solid var(--border-secondary)',
+                      ? '1px solid #dc2626'
+                      : '1px solid var(--text-primary)',
                     color: 'var(--text-primary)',
                   }"
                 />
@@ -247,7 +249,7 @@
               </label>
               <select
                 v-model="form.order"
-                class="w-full text-sm bg-transparent outline-none pb-2!"
+                class="w-full text-base bg-transparent outline-none pb-2!"
                 style="border-bottom: 1px solid var(--text-primary)"
                 :style="{ color: 'var(--text-primary)' }"
               >
@@ -268,7 +270,7 @@
               </label>
               <select
                 v-model="form.topic"
-                class="w-full text-sm bg-transparent outline-none pb-2!"
+                class="w-full text-base bg-transparent outline-none pb-2!"
                 style="border-bottom: 1px solid var(--text-primary)"
                 :style="{ color: 'var(--text-primary)' }"
               >
