@@ -275,16 +275,21 @@
             </p>
           </div>
 
+          <p v-if="errors.general" class="text-xs mt-1! mb-2! text-red-500">
+            {{ errors.general }}
+          </p>
           <!-- Create Account Button -->
           <button
             type="submit"
+            :disabled="submitting"
             class="w-full py-4! text-xs font-medium tracking-widest uppercase mb-4! transition-opacity hover:opacity-80"
             :style="{
               backgroundColor: 'var(--button-bg)',
               color: 'var(--bg)',
+              opacity: submitting ? 0.6 : 1,
             }"
           >
-            Create an account
+            {{ submitting ? "Creating account..." : "Create an account" }}
           </button>
 
           <!-- Terms -->
@@ -484,12 +489,15 @@ import { useRouter } from "vue-router";
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import { useTheme } from "../composables/useTheme";
+import { useAuth } from "../composables/stores/useAuth";
 
 const { isDark } = useTheme();
 const router = useRouter();
+const { register } = useAuth();
 
 const showPassword = ref(false);
 const showConfirmPassword = ref(false);
+const submitting = ref(false);
 
 const form = ref({
   email: "",
@@ -508,6 +516,7 @@ const errors = ref({
   gender: "",
   firstName: "",
   lastName: "",
+  general: "",
 });
 
 const genderOptions = ["Mrs", "Mr", "Mx", "I prefer not to say"];
@@ -556,7 +565,17 @@ const handleRegister = async () => {
 
   if (!valid) return;
 
-  // Connect to backend later
-  console.log("Register:", form.value);
+  submitting.value = true;
+
+  try {
+    const fullName = `${form.value.firstName} ${form.value.lastName}`.trim();
+    await register(fullName, form.value.email, form.value.password);
+    router.push("/favorites");
+  } catch (err: any) {
+    errors.value.general =
+      err.message || "Registration failed. Please try again.";
+  } finally {
+    submitting.value = false;
+  }
 };
 </script>

@@ -24,7 +24,7 @@
       <div class="mx-auto!" style="max-width: 700px; padding: 3rem 2rem">
         <!-- Instruction -->
         <p class="text-sm mb-6!" style="color: #8b6343">
-          Please enter your email
+          Please enter your email and password
         </p>
 
         <!-- Email Input -->
@@ -45,6 +45,26 @@
             "
             placeholder=""
           />
+        </div>
+
+        <!-- Password Input -->
+        <div class="mb-6!">
+          <label
+            class="text-xs mb-1! block"
+            :style="{ color: 'var(--text-secondary)' }"
+          >
+            Password *
+          </label>
+          <input
+            v-model="password"
+            type="password"
+            class="w-full text-base bg-transparent outline-none pb-2!"
+            style="
+              border-bottom: 2px solid var(--border-secondary);
+              color: var(--text-primary);
+            "
+            placeholder=""
+          />
           <p v-if="error" class="text-xs mt-2! text-red-500">{{ error }}</p>
         </div>
 
@@ -53,13 +73,15 @@
           <!-- Login -->
           <button
             @click="handleLogin"
+            :disabled="loading"
             class="flex-1 py-4! text-xs font-medium tracking-widest uppercase transition-opacity hover:opacity-80"
             :style="{
               backgroundColor: 'var(--button-bg)',
               color: 'var(--bg)',
+              opacity: loading ? 0.6 : 1,
             }"
           >
-            Login
+            {{ loading ? "Logging in..." : "Login" }}
           </button>
           <!-- Create Account -->
           <button
@@ -230,13 +252,15 @@ const router = useRouter();
 const route = useRoute();
 const { login } = useAuth();
 const email = ref("");
+const password = ref("");
 const error = ref("");
+const loading = ref(false);
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const handleLogin = async () => {
-  if (!email.value.trim()) {
-    error.value = "Please enter your email";
+  if (!email.value.trim() || !password.value.trim()) {
+    error.value = "Please enter your email and password";
     return;
   }
 
@@ -246,15 +270,19 @@ const handleLogin = async () => {
   }
 
   error.value = "";
+  loading.value = true;
 
-  // TEMP MOCK — no backend yet, so this just flips the shared isLoggedIn
-  // flag rather than checking credentials. Once the auth API is ready,
-  // replace this block with a real request and only call login() on success.
-  console.log("Login with:", email.value);
-  login();
-
-  const redirectTo =
-    typeof route.query.redirect === "string" ? route.query.redirect : "/favorites";
-  router.push(redirectTo);
+  try {
+    await login(email.value, password.value);
+    const redirectTo =
+      typeof route.query.redirect === "string"
+        ? route.query.redirect
+        : "/favorites";
+    router.push(redirectTo);
+  } catch (err: any) {
+    error.value = err.message || "Login failed. Please try again.";
+  } finally {
+    loading.value = false;
+  }
 };
 </script>

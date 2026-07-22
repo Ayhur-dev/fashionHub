@@ -8,6 +8,7 @@ import Register from "../pages/Register.vue";
 import Favorites from "../pages/favorites.vue";
 import Contact from "../pages/Contact.vue";
 import TrackOrder from "../pages/TrackOrder.vue";
+import RegisterReturn from "../pages/RegisterReturn.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -28,6 +29,11 @@ const router = createRouter({
     { path: "/favorites", name: "favorites", component: Favorites },
     { path: "/contact", name: "contact", component: Contact },
     { path: "/track-order", name: "track-order", component: TrackOrder },
+    {
+      path: "/register-return",
+      name: "register-return",
+      component: RegisterReturn,
+    },
   ],
   scrollBehavior() {
     return { top: 0 };

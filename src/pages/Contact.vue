@@ -291,9 +291,9 @@
                 href="mailto:customercare@jacquemus.com"
                 :style="{ color: 'var(--text-primary)' }"
                 style="text-decoration: underline; text-underline-offset: 3px"
-                >customercare@jacquemus.com</a
+                >customercare@nyxcollective.com</a
               >
-              or call +33 (0)1 86 47 80 99 from Monday to Friday from 10:00 to
+              or call +234 (9)0 34 71 39 35 from Monday to Friday from 10:00 to
               21:00, Saturdays from 10:00 to 18:00 CET.
             </p>
 

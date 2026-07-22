@@ -269,8 +269,8 @@
             Track an order
           </RouterLink>
 
-          <a
-            href="#"
+          <RouterLink
+            to="/register-return"
             class="text-xs transition-opacity duration-200 hover:opacity-60"
             style="
               color: var(--text-primary);
@@ -279,7 +279,7 @@
             "
           >
             Register a return
-          </a>
+          </RouterLink>
         </div>
       </div>
     </div>

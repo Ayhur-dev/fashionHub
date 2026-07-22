@@ -1,7 +1,7 @@
 <template>
   <OrderLookupForm
-    title="Track An Order"
-    button-text="Track An Order"
+    title="Return Items"
+    button-text="Register a Return"
   />
 </template>
 
